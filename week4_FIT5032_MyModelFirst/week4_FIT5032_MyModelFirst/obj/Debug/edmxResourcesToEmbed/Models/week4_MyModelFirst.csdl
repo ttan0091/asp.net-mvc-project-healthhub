@@ -7,6 +7,11 @@
       <End Role="Student" EntitySet="StudentSet" />
       <End Role="Unit" EntitySet="UnitSet" />
     </AssociationSet>
+    <EntitySet Name="testSet" EntityType="week4_MyModelFirst.test" />
+    <AssociationSet Name="testStudent" Association="week4_MyModelFirst.testStudent">
+      <End Role="test" EntitySet="testSet" />
+      <End Role="Student" EntitySet="StudentSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Student">
     <Key>
@@ -16,6 +21,8 @@
     <Property Name="FirstName" Type="String" Nullable="false" />
     <Property Name="LastName" Type="String" Nullable="false" />
     <NavigationProperty Name="Unit" Relationship="week4_MyModelFirst.StudentUnit" FromRole="Student" ToRole="Unit" />
+    <NavigationProperty Name="test" Relationship="week4_MyModelFirst.testStudent" FromRole="Student" ToRole="test" />
+    <Property Name="testId" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="Unit">
     <Key>
@@ -36,6 +43,25 @@
       </Principal>
       <Dependent Role="Unit">
         <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="test">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Student" Relationship="week4_MyModelFirst.testStudent" FromRole="test" ToRole="Student" />
+  </EntityType>
+  <Association Name="testStudent">
+    <End Type="week4_MyModelFirst.test" Role="test" Multiplicity="1" />
+    <End Type="week4_MyModelFirst.Student" Role="Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="test">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="testId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

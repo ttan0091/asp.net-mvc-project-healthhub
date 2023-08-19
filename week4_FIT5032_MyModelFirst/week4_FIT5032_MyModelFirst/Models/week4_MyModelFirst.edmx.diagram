@@ -8,6 +8,8 @@
         <EntityTypeShape EntityType="week4_MyModelFirst.Student" Width="1.5" PointX="1.25" PointY="1" />
         <EntityTypeShape EntityType="week4_MyModelFirst.Unit" Width="1.5" PointX="4.625" PointY="1.375" />
         <AssociationConnector Association="week4_MyModelFirst.StudentUnit" />
+        <EntityTypeShape EntityType="week4_MyModelFirst.test" Width="1.5" PointX="7.125" PointY="0.625" />
+        <AssociationConnector Association="week4_MyModelFirst.testStudent" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

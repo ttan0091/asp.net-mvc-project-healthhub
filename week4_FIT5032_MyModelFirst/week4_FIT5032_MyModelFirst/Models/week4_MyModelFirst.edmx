@@ -8,9 +8,14 @@
   <EntityContainer Name="week4_MyModelFirstStoreContainer">
     <EntitySet Name="StudentSet" EntityType="week4_MyModelFirst.Store.StudentSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UnitSet" EntityType="week4_MyModelFirst.Store.UnitSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="testSet" EntityType="week4_MyModelFirst.Store.testSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="StudentUnit" Association="week4_MyModelFirst.Store.StudentUnit">
       <End Role="Student" EntitySet="StudentSet" />
       <End Role="Unit" EntitySet="UnitSet" />
+    </AssociationSet>
+    <AssociationSet Name="testStudent" Association="week4_MyModelFirst.Store.testStudent">
+      <End Role="test" EntitySet="testSet" />
+      <End Role="Student" EntitySet="StudentSet" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="StudentSet">
@@ -20,6 +25,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="testId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="UnitSet">
     <Key>
@@ -30,6 +36,12 @@
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="StudentId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="testSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
   <Association Name="StudentUnit">
     <End Role="Student" Type="week4_MyModelFirst.Store.StudentSet" Multiplicity="1" />
     <End Role="Unit" Type="week4_MyModelFirst.Store.UnitSet" Multiplicity="*" />
@@ -39,6 +51,18 @@
       </Principal>
       <Dependent Role="Unit">
         <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="testStudent">
+    <End Role="test" Type="week4_MyModelFirst.Store.testSet" Multiplicity="1" />
+    <End Role="Student" Type="week4_MyModelFirst.Store.StudentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="test">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="testId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -53,6 +77,11 @@
             <End Role="Student" EntitySet="StudentSet" />
             <End Role="Unit" EntitySet="UnitSet" />
           </AssociationSet>
+          <EntitySet Name="testSet" EntityType="week4_MyModelFirst.test" />
+          <AssociationSet Name="testStudent" Association="week4_MyModelFirst.testStudent">
+            <End Role="test" EntitySet="testSet" />
+            <End Role="Student" EntitySet="StudentSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Student">
           <Key>
@@ -62,6 +91,8 @@
           <Property Name="FirstName" Type="String" Nullable="false" />
           <Property Name="LastName" Type="String" Nullable="false" />
           <NavigationProperty Name="Unit" Relationship="week4_MyModelFirst.StudentUnit" FromRole="Student" ToRole="Unit" />
+          <NavigationProperty Name="test" Relationship="week4_MyModelFirst.testStudent" FromRole="Student" ToRole="test" />
+          <Property Name="testId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Unit">
           <Key>
@@ -85,6 +116,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Student" Relationship="week4_MyModelFirst.testStudent" FromRole="test" ToRole="Student" />
+        </EntityType>
+        <Association Name="testStudent">
+          <End Type="week4_MyModelFirst.test" Role="test" Multiplicity="1" />
+          <End Type="week4_MyModelFirst.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="test">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="testId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -97,6 +147,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="testId" ColumnName="testId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -107,6 +158,13 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="testSet">
+      <EntityTypeMapping TypeName="IsTypeOf(week4_MyModelFirst.test)">
+        <MappingFragment StoreEntitySet="testSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

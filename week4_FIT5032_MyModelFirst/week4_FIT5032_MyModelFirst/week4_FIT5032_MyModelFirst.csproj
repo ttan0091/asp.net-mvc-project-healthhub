@@ -183,6 +183,9 @@
     <Compile Include="Models\Student.cs">
       <DependentUpon>week4_MyModelFirst.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\test.cs">
+      <DependentUpon>week4_MyModelFirst.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Unit.cs">
       <DependentUpon>week4_MyModelFirst.tt</DependentUpon>
     </Compile>

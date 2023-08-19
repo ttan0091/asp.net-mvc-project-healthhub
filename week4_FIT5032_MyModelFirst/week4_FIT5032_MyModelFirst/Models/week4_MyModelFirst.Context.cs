@@ -27,5 +27,6 @@ namespace week4_FIT5032_MyModelFirst.Models
     
         public virtual DbSet<Student> StudentSet { get; set; }
         public virtual DbSet<Unit> UnitSet { get; set; }
+        public virtual DbSet<test> testSet { get; set; }
     }
 }
