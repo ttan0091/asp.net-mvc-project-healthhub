@@ -1,6 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "MRI Services";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -8,68 +7,88 @@
 <section class="doctors-list-section">
     <div class="auto-container">
         <div class="row">
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-3 col-md-6">
                 <div class="widget widget-categories">
                     <h3 class="widget-title">MRI Service</h3>
                     <ul class="list">
-                        <li><a href="#">Make an appointment</a></li>
-                        <li><a href="#">Auctor mattis lacus </a></li>
-                        <li><a href="#">Dolor proin </a></li>
-                        <li><a href="#">Pharetra amet </a></li>
-                        <li><a href="#">Nullam dolor gravida </a></li>
+                        <li><a href="@Url.Action("Index", "Mri", new { viewName = "BookMriService" })">Book MRI Service</a></li>
+                        <li><a href="@Url.Action("Index", "Mri", new { viewName = "BookConsultation" })">Book a Consultation</a></li>
+                        <li><a href="@Url.Action("Index", "Mri", new { viewName = "CheckImages" })">Check My Images</a></li>
+                        <li><a href="@Url.Action("Index", "Mri", new { viewName = "CheckConsultation" })">Check My Consultation</a></li>
+                        <li><a href="@Url.Action("Index", "Mri", new { viewName = "CheckBills" })">Check My Bills</a></li>
+                        <li><a href="@Url.Action("Index", "Mri", new { viewName = "SendEmail" })">Send an Email</a></li>
+                        <li><a href="@Url.Action("Index", "Mri", new { viewName = "RateDoctor" })">Rate a Doctor</a></li>
                     </ul>
                 </div>
             </div>
 
-
-            <!-- Right side of the page -->
-            <div class="col-lg-8 col-md-6">
-                <!-- Location Selector -->
-                <div class="form-group">
-                    <label for="locationSelector">Choose Location:</label>
-                    <select class="form-control" id="locationSelector">
-                        <option>Location 1</option>
-                        <option>Location 2</option>
-                        <option>Location 3</option>
-                        <!-- Add more options as needed -->
-                    </select>
-                </div>
-
-                <!-- Map Display Area -->
-                <div id="map" style="height: 400px; width: 100%;">
-                    <!-- Map will go here. You can use Google Maps, Leaflet, etc. -->
-                </div>
+            <div class="col-lg-9 col-md-6">
+                @{
+                    if (ViewBag.ViewName == "BookMriService")
+                    {
+                        Html.RenderAction("BookMriService", "Mri");
+                    }
+                    else if (ViewBag.ViewName == "BookConsultation")
+                    {
+                        Html.RenderAction("BookConsultation", "Mri");
+                    }
+                    else if (ViewBag.ViewName == "CheckImages")
+                    {
+                        Html.RenderAction("CheckImages", "Mri");
+                    }
+                    else if (ViewBag.ViewName == "CheckConsultation")
+                    {
+                        Html.RenderAction("CheckConsultation", "Mri");
+                    }
+                    else if (ViewBag.ViewName == "CheckBills")
+                    {
+                        Html.RenderAction("CheckBills", "Mri");
+                    }
+                    else if (ViewBag.ViewName == "SendEmail")
+                    {
+                        Html.RenderAction("SendEmail", "Mri");
+                    }
+                    else if (ViewBag.ViewName == "RateDoctor")
+                    {
+                        Html.RenderAction("RateDoctor", "Mri");
+                    }
+                }
             </div>
+
+
+
+
         </div>
     </div>
 </section>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpuX2c21Sk2Y0FmuqjEw1xTkw8ucq2mlE&callback=initMap"></script>
 
-<script>
-    function initMap() {
-        // Map options
-        var options = {
-            zoom: 8,
-            center: { lat: 40.7128, lng: -74.0060 } // New York coordinates
-        }
 
-        // Create new map
-        var map = new google.maps.Map(document.getElementById('map'), options);
 
-        // Add marker
-        var marker = new google.maps.Marker({
-            position: { lat: 40.7128, lng: -74.0060 },
-            map: map,
-            title: 'First Marker'
-        });
 
-        // Another marker
-        var anotherMarker = new google.maps.Marker({
-            position: { lat: 40.730610, lng: -73.935242 },
-            map: map,
-            title: 'Second Marker'
-        });
-    }
 
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

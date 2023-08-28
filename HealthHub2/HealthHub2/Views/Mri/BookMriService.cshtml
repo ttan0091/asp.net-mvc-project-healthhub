@@ -1,0 +1,68 @@
+﻿<!-- Location Selector -->
+<div class="form-group">
+    <h3 class="widget-title">MRI Service</h3>
+    <label for="locationSelector">Choose Location:</label>
+    <select class="form-control" id="locationSelector">
+        <option value="Monash University, Melbourne, Australia">Monash University, Melbourne</option>
+        <option value="M-City, Clayton, Melbourne, Australia">M-City, Clayton, Melbourne</option>
+        <option value="University of Melbourne, Melbourne, Australia">University of Melbourne</option>
+        <option value="University of Sydney, Sydney, Australia">University of Sydney</option>
+        <option value="University of Western Australia, Perth, Australia">University of Western Australia</option>
+    </select>
+</div>
+
+<!-- Additional Features -->
+<div class="form-group">
+    <input type="text" id="searchPlace" placeholder="Search place of interest">
+    <input type="text" id="startPlace" placeholder="Start Place">
+    <input type="text" id="endPlace" placeholder="End Place">
+    <button onclick="navigate()">Navigate</button>
+</div>
+
+<!-- Map Display Area -->
+<div id="map" style="height: 400px; width: 100%;"></div>
+
+<!-- JavaScript for Google Maps -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpuX2c21Sk2Y0FmuqjEw1xTkw8ucq2mlE&callback=initMap&libraries=places"></script>
+
+<script>
+    var map;
+    function initMap() {
+        // Map options
+        var options = {
+            zoom: 14,
+            center: { lat: -37.9125, lng: 145.1340 }  // Monash University coordinates
+        };
+
+        // Create new map
+        map = new google.maps.Map(document.getElementById('map'), options);
+
+        // Add marker for Monash University as default
+        var marker = new google.maps.Marker({
+            position: { lat: -37.9125, lng: 145.1340 },
+            map: map,
+            title: 'Monash University'
+        });
+    }
+
+    // Listen for select box changes
+    document.getElementById('locationSelector').addEventListener('change', function () {
+        var location = this.value;
+
+        // Convert address to lat/lng
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': location }, function (results, status) {
+            if (status == 'OK') {
+                map.setCenter(results[0].geometry.location);
+            }
+        });
+    });
+
+    // Function for navigation between places and showing trip information
+    function navigate() {
+        var startPlace = document.getElementById('startPlace').value;
+        var endPlace = document.getElementById('endPlace').value;
+
+        // Your code for navigation and trip information goes here.
+    }
+</script>

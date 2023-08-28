@@ -459,6 +459,8 @@
     <Content Include="Views\Shared\_NavbarRightInfo.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Mri\Index.cshtml" />
+    <Content Include="Views\Mri\BookMriService.cshtml" />
+    <Content Include="Views\Mri\BookConsultation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
