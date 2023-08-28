@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using HealthHub2.Context;
 using HealthHub2.Models;
+using HealthHub2.Utility;
 
 namespace HealthHub2.Controllers
 {
@@ -55,6 +56,10 @@ namespace HealthHub2.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    // 使用PasswordHelper来加密密码
+                    string hashedPassword = PasswordHelper.HashPassword(patient.Password);
+                    patient.Password = hashedPassword;
+
                     db.Patients.Add(patient);
                     db.SaveChanges();  
                     TempData["SuccessMessage"] = "Register Succeed！";
@@ -150,8 +155,11 @@ namespace HealthHub2.Controllers
         [HttpPost]
         public ActionResult Login(Patient patient)
         {
-            
-            var user = db.Patients.FirstOrDefault(u => u.Email == patient.Email && u.Password == patient.Password);
+
+            string hashedPassword = PasswordHelper.HashPassword(patient.Password);
+
+            var user = db.Patients.FirstOrDefault(u => u.Email == patient.Email && u.Password == hashedPassword);
+
 
             if (user != null)
             {
@@ -160,6 +168,7 @@ namespace HealthHub2.Controllers
                 Session["Email"] = user.Email.ToString();
                 Session["LastName"] = user.LastName;
                 Session["Address"] = user.Address;
+                //Session["Status"] = user.Status;dddd
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -203,11 +212,11 @@ namespace HealthHub2.Controllers
                     existingPatient.FirstName = patient.FirstName;
                     existingPatient.LastName = patient.LastName;
                     existingPatient.Address = patient.Address;
-
+                    existingPatient.Address = patient.Status;
                     Session["FirstName"] = existingPatient.FirstName;
                     Session["LastName"] = existingPatient.LastName;
                     Session["Address"] = existingPatient.Address;
-
+                    Session["Status"] = existingPatient.Status;
                     try
                     {
                         db.SaveChanges();
