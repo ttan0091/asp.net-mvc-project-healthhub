@@ -1,0 +1,86 @@
+﻿@model HealthHub2.Models.Patient
+
+@{
+    ViewBag.Title = "Edit Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="auto-container" style="margin-top:120px">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <h2>Edit Profile</h2>
+            @using (Html.BeginForm("EditProfile", "Patient", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.PatientId)
+                @Html.HiddenFor(model => model.Email)
+                @Html.HiddenFor(model => model.Password)
+
+                <table class="table table-hover mt-5 ">
+
+                    @*<tr>
+                    <td>@Html.LabelFor(model => model.Email)</td>
+                    <td>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Password)</td>
+                    <td>
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </td>
+                </tr>*@
+                    <tr>
+                        <td>@Html.LabelFor(model => model.FirstName)</td>
+                        <td>
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.LastName)</td>
+                        <td>
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.Address)</td>
+                        <td>
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                </table>
+
+                <input type="submit" value="Update" class="btn theme-btn " />
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script>
+    $(document).ready(function() {
+        var successMessage = '@TempData["UpdateSuccessMessage"]';
+        if (successMessage) {
+            alert(successMessage);
+        }
+    });
+     $(document).ready(function() {
+        var successMessage = '@TempData["UpdateErrorMessage"]';
+        if (successMessage) {
+            alert(successMessage);
+        }
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

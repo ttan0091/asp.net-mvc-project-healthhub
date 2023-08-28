@@ -1,0 +1,66 @@
+﻿@model HealthHub2.Models.Patient
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="auto-container" style="margin-top:150px; margin-bottom:120px;">
+
+    <div class="row">
+        <!-- Medical Center Introduction -->
+        <div class="col-md-5 ">
+            <h2>Welcome to Our Medical Center</h2>
+            <p>
+                We are dedicated to providing excellent care. Our medical center offers a variety of services ranging from emergency care to general check-ups.
+            </p>
+            <p>
+                Our qualified and caring staff are here to ensure you receive the best treatment possible, in a friendly and welcoming environment.
+            </p>
+        </div>
+        <!-- Empty Space -->
+        <div class="col-md-2">
+            <!-- leave this empty or put some spacer content if you want -->
+        </div>
+        <!-- Login Form -->
+        <div class="col-md-5  ">
+            <h2>Login</h2>
+            @using (Html.BeginForm("Login", "Patient", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group mt-3">
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="form-group mt-3">
+                    @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                @*<button type="submit" class="btn theme-bt mt-3">Login</button>*@
+                <input type="submit" value="Login" class="btn theme-btn mt-3 " />
+            }
+
+            <p>
+                Don't have an account? <a href="@Url.Action("Create", "Patient")">Register</a>
+            </p>
+            <p>
+                <a href="@Url.Action("Login", "Doctor")">Login as Doctor</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script>
+    $(document).ready(function() {
+        var successMessage = '@TempData["SuccessMessage"]';
+        if (successMessage) {
+            alert(successMessage);
+        }
+    });
+</script>

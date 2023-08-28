@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - HealthHub Connect</title>
+    @*@Styles.Render("~/Content/css")*@
+    @Styles.Render("~/assets/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="~/assets/css/responsive.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+    <header class="main-header header-style-four ">
+
+        <!-- Header Upper -->
+        <div class="header-upper">
+            <div class="auto-container">
+                <div class="inner-container">
+                    <!--Logo-->
+                    <div class="logo-box d-flex align-items-center">
+
+                        <a href="@Url.Action("Index", "Home")" class="d-flex align-items-center text-decoration-none">
+                            <div class="logo">
+                                <img src="~/assets/images/logo-dark.png" alt="">
+                            </div>
+                            <h3 class="">HealthHub Connect</h3>
+                        </a>
+                    </div>
+
+
+                    <div class="right-column">
+                        <!--Nav Box-->
+                        <div class="nav-outer">
+                            <!--Mobile Navigation Toggler-->
+                            <div class="mobile-nav-toggler">
+                                <img src="~/assets/images/icons/icon-bar.png" alt="">
+                            </div>
+
+                            <!-- Main Menu -->
+                            <nav class="main-menu navbar-expand-md navbar-light">
+                                <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                                    <ul class="navigation">
+                                        <li class="dropdown">
+                                            <a href="#">Service</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">CT</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">MRI</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Ultrasound</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">PET</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">X-Ray</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Mammography</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="dropdown">
+                                            <a href="#">Find a clinic</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">New South Wales</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Victoria</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Queensland</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Western Australia</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">South Australia</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Tasmania</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Australian Capital Territory</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Northern Territory</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="dropdown">
+                                            <a href="#">Patient Info</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">Your Safety Is Our Priority</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Fees & Billing</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Feedback</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Workers Compensation</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Overseas Patients</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Frequently Asked Questions</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="dropdown">
+                                            <a href="#">Language</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">Chinese</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">English</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Korean</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Japanese</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">French</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">German</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="dropdown">
+                                            <a href="#">About</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">Careers</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Contact Us</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Patient Updates</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Our Technology</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Research Partners</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        @Html.Partial("_NavbarRightInfo")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Header Upper-->
+        <!-- Sticky Header  -->
+        <div class="sticky-header">
+            <div class="header-upper">
+                <div class="auto-container">
+                    <div class="inner-container">
+                        <!--Logo-->
+                        <a href="index.html" class="d-flex align-items-center text-decoration-none">
+                            <div class="logo">
+                                <img src="~/assets/images/logo-dark.png" alt="">
+                            </div>
+                            <h3 class="">HealthHub Connect</h3>
+                        </a>
+                        <div class="right-column">
+                            <!--Nav Box-->
+                            <div class="nav-outer">
+                                <!--Mobile Navigation Toggler-->
+                                <div class="mobile-nav-toggler">
+                                    <img src="~/assets/images/icons/icon-bar-2.png" alt="icon">
+                                </div>
+
+                                <!-- Main Menu -->
+                                <nav class="main-menu navbar-expand-md navbar-light">
+
+                                </nav>
+                            </div>
+                            
+                            @Html.Partial("_NavbarRightInfo")
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Sticky Menu -->
+        <!-- Mobile Menu  -->
+        <div class="mobile-menu">
+            <div class="close-btn"><span class="fal fa-times"></span></div>
+
+            <nav class="menu-box">
+                <hr>
+                <hr>
+                <div class="menu-outer">
+                    @Html.Partial("_NavbarRightInfo")
+                </div>
+            </nav>
+        </div><!-- End Mobile Menu -->
+
+    </header>
+    <!-- End Main Header -->
+
+
+    <div class="">
+
+        @RenderBody()
+
+        @Html.Partial("_Footer")
+
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/assets/js/jquery.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/js/jquery.fancybox.js"></script>
+    <script src="~/assets/js/isotope.js"></script>
+    <script src="~/assets/js/owl.js"></script>
+    <script src="~/assets/js/appear.js"></script>
+    <script src="~/assets/js/wow.js"></script>
+    <script src="~/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/assets/js/TweenMax.min.js"></script>
+    <script src="~/assets/js/swiper.min.js"></script>
+    <script src="~/assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/assets/js/parallax-scroll.js"></script>
+    <script src="~/assets/js/jquery.nice-select.min.js"></script>
+
+    <script src="~/assets/js/script.js"></script>
+
+
+    @RenderSection("scripts", required: false)
+
+
+
+
+
+</body>
+</html>

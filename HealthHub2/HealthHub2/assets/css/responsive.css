@@ -1,0 +1,285 @@
+@media only screen and (max-width: 7000px){
+	.page-wrapper{
+		overflow: hidden;
+	}
+	
+}
+
+@media only screen and (max-width: 1799px){
+
+}
+
+@media only screen and (max-width: 1675px){
+    .main-header.header-style-one .header-upper .logo-box {
+        position: relative;
+        left: 0;
+    }    
+    .main-header.header-style-one .header-upper .navbar-right-info {
+        position: relative;
+        right: 0;
+    }
+    .banner-section-three .side-image {
+        max-width: 670px;
+    }
+}
+
+@media only screen and (max-width: 1400px){
+
+	.main-menu .navigation>li:nth-last-child(-n+3)>ul>li>ul {
+	    left: auto;
+	    right: 100%;
+	}
+	.main-menu .navigation > li:nth-last-child(-n+2) > ul {
+	    left: auto;
+	    right: 0;
+	}
+	.main-menu .navigation > li:nth-last-child(-n+2) > ul > li > ul {
+	    left: auto;
+	    right: 100%;
+	}
+
+}
+
+@media only screen and (max-width: 1330px){
+    .header-top .auto-container {
+        max-width: 1200px;
+        padding: 0 15px;
+    }
+    .main-header.header-style-two .header-upper .auto-container {
+        padding: 0 15px;
+    }
+}
+
+@media only screen and (max-width: 1199px){
+    .banner-section-three .image,
+    .banner-section-three .side-image {
+        display: none;
+    }
+    .main-header.header-style-three .header-top .office-hour {
+        color: #03045E;
+    }    
+    .main-header.header-style-three .header-top .office-hour i {
+        color: #03045E;
+    }    
+    .main-header.header-style-three .header-top .social-links li a {
+        color: #03045E;
+    }    
+    .main-header.header-style-three .header-top .social-links li a:hover {
+        color: var(--theme_primary);
+    }
+    .what-we-do .image-column {
+        margin-bottom: 0;
+    }    
+    .what-we-do .image-column img {
+        display: block;
+    }    
+    .what-we-do .inner-container {
+        max-width: 100%;
+    }
+}
+
+
+@media only screen and (max-width: 1099px){
+
+}
+
+@media only screen and (min-width: 1140px){
+
+}
+
+@media only screen and (max-width: 1139px){
+	/* Default */
+	.main-header .nav-outer .main-menu,
+	.sticky-header{
+		display: none !important;
+	}
+	.nav-outer .mobile-nav-toggler{
+		display: block;
+	}
+	/*  */
+    .filters .filter-btns li {
+        width: 100%;
+    }
+    .doctor-details .tabs-box ul li.tab-btn {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .banner-section .image-block {
+        display: none;
+    }
+    .about__section .image__block {
+        margin-top: 0;
+    }
+    .service-block .inner-box {
+        max-width: 370px;
+        margin: 0 auto;
+    }
+    .team-section .auto-container {
+        max-width: 600px;
+    }
+    .team-section .auto-container {
+        max-width: 600px;
+    }    
+    .main-footer .top-info .info-block {
+        max-width: 350px;
+    }    
+    .main-footer .top-info {
+        padding-left: 30px;
+        padding-right: 30px;
+    }    
+    .main-footer .top-info .logo {
+        max-width: 350px;
+        text-align: left;
+    }    
+    .main-footer .top-info .info-block:before {
+        opacity: 0;
+    }
+    .feature-block-two .inner-box {
+        max-width: 370px;
+        margin: 0 auto 30px;
+    }
+    .doctor-block-two .left-column {
+        width: 100%;
+        min-height: 160px;
+        margin-bottom: 30px;
+    }    
+    .doctor-block-two .right-column {
+        width: 100%;
+        padding-left: 0;
+        border-left: 0;
+    }
+    .doctor-block-four .inner-box {
+        padding-left: 35px;
+    }
+    
+    .doctor-block-four .image {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-bottom: 25px;
+    }
+    .doctor-block-four .share-links {
+        position: relative;
+        margin-left: -5px;
+        margin-top: 20px;
+    }
+    .news-block-two .inner-box {
+        max-width: 370px;
+        margin: 0 auto 30px;
+    }
+    .contact-form-section-two .contact-info {
+        padding-left: 20px;
+    }
+    
+}
+
+@media only screen and (max-width: 767px) {
+    .header-upper .navbar-right-info {
+        display: none;
+    }
+    .header-top .info-list {
+        justify-content: center;
+    }
+    .header-top .right-column {
+        width: 100%;
+        justify-content: center;
+    }
+    .features-section .text-block .theme-btn {
+        margin-right: 15px;
+    }
+    .features-section .text-block .phone-number {
+        margin-top: 20px;
+        margin-left: 0;
+    }
+    .newsletter-section .newsletter-form .theme-btn {
+        position: relative;
+        right: 0;
+        top: 0;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+    .banner-section-three .text-block h2,
+    .banner-section .text-block h2,
+    .banner-section-two .text-block h2 {
+        font-size: 50px;
+        line-height: 60px;
+    }
+    .sec-title h2 {
+        font-size: 30px;
+        line-height: 40px;
+    }
+    .about__section .content__block ul.list {
+        margin-bottom: 10px;
+    }
+    .contact-form-section .contact-form {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .header-top .wrapper-box .left-column {
+        width: 100%;
+    }
+    .banner-section-three form .form-group {
+        margin-bottom: 11px !important;
+    }    
+    .banner-section-three form {
+        padding-bottom: 28px;
+    }
+    .comments-area .comment-box.comment-reply {
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .scroll-to-top {
+        display: none !important;
+    }
+    .banner-section-three form .left-side,
+    .banner-section-two .text-block form .left-side {
+        width: 100%;
+        margin-bottom: 11px;
+    }
+    .features-section .outer-box-two {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .owl-theme .owl-nav {
+        display: none !important;
+    }
+    .doctor-block-two .left-column {
+        padding-left: 0;
+    }    
+    .doctor-block-two .image {
+        position: relative;
+        margin-bottom: 20px;
+        top: 0;
+        left: 0;
+    }
+    .contact-form-section-two .contact-info {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .comments-area .comment {
+        padding-left: 0;
+    }    
+    .comments-area .comment-box .author-thumb {
+        position: relative;
+    }    
+    .comments-area .comment-box .info .comment-date {
+        position: relative;
+        margin-top: 10px;
+    }
+    .doctor-details .experience table td {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+

@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\week4_MyCodeFirst.props" />
-</Project>

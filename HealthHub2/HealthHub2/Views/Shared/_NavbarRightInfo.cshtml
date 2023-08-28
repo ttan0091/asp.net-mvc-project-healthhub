@@ -1,0 +1,22 @@
+﻿<div class="navbar-right-info">
+    @if (Session["FirstName"] != null)
+    {
+        <div class="link-btn">
+            <a href="@Url.Action("EditProfile", "Patient")" class="" style=" text-decoration: underline;">
+                Hi, @Session["FirstName"]!
+            </a>
+            <!-- Logout Button -->
+            <a href="@Url.Action("Logout", "Patient")" class="m-2" style=" ">
+                Logout
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="link-btn">
+            <a href="@Url.Action("Login", "Patient")" class="theme-btn">
+                Login / Register
+            </a>
+        </div>
+    }
+</div>
