@@ -14,17 +14,17 @@ namespace HealthHub2.Controllers
         public ActionResult Index(string viewName)
         {
             ViewBag.ViewName = viewName ?? "BookMriService"; // 默认为 "BookMriService"
-       
+            return View();//仅限开发阶段，完成时须注释掉此代码，启用下面的代码
 
-            if (Session["Status"] != null && Session["Status"].ToString() == "patient") // 检查用户是否登录
-            {
-                return View();
-            }
-            else
-            {
-                // 如果用户没有登录或者状态不是 "patient"，重定向到 Login 方法
-                return RedirectToAction("Login", "Patient");
-            }
+            //if (Session["Status"] != null && Session["Status"].ToString() == "patient") // 检查用户是否登录
+            //{
+            //    return View();
+            //}
+            //else
+            //{
+            //    // 如果用户没有登录或者状态不是 "patient"，重定向到 Login 方法
+            //    return RedirectToAction("Login", "Patient");
+            //}
 
             
             
@@ -45,8 +45,8 @@ namespace HealthHub2.Controllers
         {
             
 
-            //return Content(clinicLocation);
-            return View();
+            return Content(clinicLocation);
+            //return View();
         }
 
         public ActionResult BookConsultation()

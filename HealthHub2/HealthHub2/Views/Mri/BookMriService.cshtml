@@ -18,9 +18,15 @@
 {
     <div class="form-group">
         <h3 class="widget-title">Book MRI Service</h3>
-        <div class="container mt-3 ">
-            <div class="d-flex justify-content-between">
-                <div>
+        <div class="container mt-3">
+            <div class="row align-items-end">
+                <!-- Clinic Label -->
+                <div class="col-sm-2 d-flex align-items-center">
+                    <p class="mb-0">Clinic:</p> 
+                </div>
+
+                <!-- Dropdown -->
+                <div class="col-sm-6">
                     <select class="form-control" id="locationSelector" name="clinicLocation" onchange="updateMapLocation(this)">
                         @foreach (var hospital in ViewBag.Hospitals)
                         {
@@ -28,12 +34,15 @@
                         }
                     </select>
                 </div>
-                <div class="ml-auto">
-                    <input type="submit" value="Confirm selection" class="theme-btn" />
+
+                <!-- Submit Button -->
+                <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                    <input type="submit" value="Confirm" class="theme-btn" />
                 </div>
             </div>
         </div>
     </div>
+
 }
 
 
