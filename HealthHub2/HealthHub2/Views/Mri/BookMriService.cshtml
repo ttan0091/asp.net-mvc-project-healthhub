@@ -1,68 +1,179 @@
-﻿<!-- Location Selector -->
-<div class="form-group">
-    <h3 class="widget-title">MRI Service</h3>
-    <label for="locationSelector">Choose Location:</label>
-    <select class="form-control" id="locationSelector">
-        <option value="Monash University, Melbourne, Australia">Monash University, Melbourne</option>
-        <option value="M-City, Clayton, Melbourne, Australia">M-City, Clayton, Melbourne</option>
-        <option value="University of Melbourne, Melbourne, Australia">University of Melbourne</option>
-        <option value="University of Sydney, Sydney, Australia">University of Sydney</option>
-        <option value="University of Western Australia, Perth, Australia">University of Western Australia</option>
-    </select>
+﻿
+
+@{
+    var firstLat = 0.0;
+    var firstLng = 0.0;
+    var firstHospital = ViewBag.Hospitals.Count > 0 ? ViewBag.Hospitals[0] : null;
+    if (firstHospital != null)
+    {
+        firstLat = firstHospital.Latitude;
+        firstLng = firstHospital.Longitude;
+    }
+}
+
+
+
+
+@using (Html.BeginForm("BookMriService", "Mri", FormMethod.Post))
+{
+    <div class="form-group">
+        <h3 class="widget-title">Book MRI Service</h3>
+        <div class="container mt-3 ">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <select class="form-control" id="locationSelector" name="clinicLocation" onchange="updateMapLocation(this)">
+                        @foreach (var hospital in ViewBag.Hospitals)
+                        {
+                            <option value="@hospital.LocationId" data-lat="@hospital.Latitude" data-lng="@hospital.Longitude">@hospital.PlaceName</option>
+                        }
+                    </select>
+                </div>
+                <div class="ml-auto">
+                    <input type="submit" value="Confirm selection" class="theme-btn" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<div class="container">
+    <!-- Map Display Area -->
+    <div class="mt-2">
+        <div id="map" style="height: 400px; width: 100%;"></div>
+    </div>
+
+    <div class="mt-3">
+        <!-- Additional Features -->
+        <div class="form-group">
+            <div class="row">
+                <div class="col-8 col-sm-10 col-md-10">
+                    <input type="text" class="form-control" id="searchPlace" placeholder="Search place of your resident">
+                </div>
+                <div class="col-4 col-sm-2 col-md-2 m-0">
+                    <button onclick="searchPlaceOfInterest()" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-4 col-sm-5 col-md-5">
+                    <input type="text" class="form-control" id="startPlace" placeholder="Start Place">
+                </div>
+                <div class="col-4 col-sm-5 col-md-5">
+                    <input type="text" class="form-control" id="endPlace" placeholder="End Place">
+                </div>
+                <div class="col-4 col-sm-2 col-md-2 ">
+                    <button onclick="navigate()" class="btn btn-primary">Navigate</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
-<!-- Additional Features -->
-<div class="form-group">
-    <input type="text" id="searchPlace" placeholder="Search place of interest">
-    <input type="text" id="startPlace" placeholder="Start Place">
-    <input type="text" id="endPlace" placeholder="End Place">
-    <button onclick="navigate()">Navigate</button>
-</div>
 
-<!-- Map Display Area -->
-<div id="map" style="height: 400px; width: 100%;"></div>
+
+
+
+
+
+
+
+
 
 <!-- JavaScript for Google Maps -->
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpuX2c21Sk2Y0FmuqjEw1xTkw8ucq2mlE&callback=initMap&libraries=places"></script>
 
 <script>
     var map;
+    var marker;
+    var searchMarker; // 新增这一行来代表搜索到的地点
+    var directionsRenderer;
+
     function initMap() {
-        // Map options
+
         var options = {
             zoom: 14,
-            center: { lat: -37.9125, lng: 145.1340 }  // Monash University coordinates
+            center: { lat: @firstLat, lng: @firstLng }
         };
 
-        // Create new map
         map = new google.maps.Map(document.getElementById('map'), options);
 
-        // Add marker for Monash University as default
-        var marker = new google.maps.Marker({
-            position: { lat: -37.9125, lng: 145.1340 },
+        marker = new google.maps.Marker({
+            position: { lat: @firstLat, lng: @firstLng },
             map: map,
-            title: 'Monash University'
+            title: '@firstHospital.PlaceName'
         });
+
+        searchMarker = new google.maps.Marker({ // 初始化搜索标记，但不设置位置
+            map: map,
+            icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png' // 设置为不同颜色以便区分
+        });
+
+        directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
     }
 
-    // Listen for select box changes
-    document.getElementById('locationSelector').addEventListener('change', function () {
-        var location = this.value;
+    // 更新地图基于选择的医院
+    function updateMapLocation(selectElement) {
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        var lat = parseFloat(selectedOption.getAttribute('data-lat'));
+        var lng = parseFloat(selectedOption.getAttribute('data-lng'));
 
-        // Convert address to lat/lng
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': location }, function (results, status) {
-            if (status == 'OK') {
-                map.setCenter(results[0].geometry.location);
+        var newCenter = { lat: lat, lng: lng };
+
+        map.setCenter(newCenter);
+        marker.setPosition(newCenter);
+
+        if (selectElement) {
+            document.getElementById("endPlace").value = selectElement.options[selectElement.selectedIndex].text;
+        }
+    }
+
+    // 搜索地点
+    function searchPlaceOfInterest() {
+        var searchQuery = document.getElementById("searchPlace").value;
+        var placesService = new google.maps.places.PlacesService(map);
+        placesService.textSearch({ query: searchQuery }, function (results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK && results && results[0]) {
+                var place = results[0];
+                var location = place.geometry.location;
+
+                map.setCenter(location);
+                searchMarker.setPosition(location);
+
+                document.getElementById("startPlace").value = place.formatted_address;
+            } else {
+                alert("No place found for the given query.");
             }
         });
-    });
-
-    // Function for navigation between places and showing trip information
-    function navigate() {
-        var startPlace = document.getElementById('startPlace').value;
-        var endPlace = document.getElementById('endPlace').value;
-
-        // Your code for navigation and trip information goes here.
     }
+
+    function navigate() {
+        var start = document.getElementById("startPlace").value;
+        var end = document.getElementById("endPlace").value;
+
+        if (!start || !end) {
+            alert("Please provide both start and end places.");
+            return;
+        }
+
+        var directionsService = new google.maps.DirectionsService();
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: 'DRIVING'
+        };
+
+        directionsService.route(request, function (result, status) {
+            if (status === 'OK') {
+                directionsRenderer.setDirections(result);
+            } else {
+                alert("Could not get directions.");
+            }
+        });
+    }
+
 </script>
+

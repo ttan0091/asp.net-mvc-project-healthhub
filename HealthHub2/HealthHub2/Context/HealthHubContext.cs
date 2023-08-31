@@ -14,13 +14,13 @@ namespace HealthHub2.Context
         //}
 
         // DbSets
-        public DbSet<Models.Doctor> Doctors { get; set; }
-        public DbSet<Models.Patient> Patients { get; set; }
-        public DbSet<Models.Rating> Ratings { get; set; }
-        public DbSet<Models.ServiceType> ServiceTypes { get; set; }
-        public DbSet<Models.MedicalImage> MedicalImages { get; set; }
-        public DbSet<Models.Appointment> Appointments { get; set; }
-        public DbSet<Models.GeoLocation> GeoLocations { get; set; }
+        public DbSet<Models.Doctor> Doctor { get; set; }
+        public DbSet<Models.Patient> Patient { get; set; }
+        public DbSet<Models.Rating> Rating { get; set; }
+        public DbSet<Models.ServiceType> ServiceType { get; set; }
+        public DbSet<Models.MedicalImage> MedicalImage { get; set; }
+        public DbSet<Models.Appointment> Appointment { get; set; }
+        public DbSet<Models.GeoLocation> GeoLocation { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

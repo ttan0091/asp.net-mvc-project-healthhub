@@ -3,7 +3,6 @@
 }
 
 
-<!-- Section two -->
 <section class="banner-section-two">
 
     <div class="bg-image" style="background-image: url(../assets/images/background/bg-5.jpg);"></div>
@@ -38,7 +37,7 @@
     </div>
 </section>
 
-<!-- about section style two -->
+
 <section class="about__section style-two">
     <div class="auto-container">
         <div class="row align-items-center">
@@ -140,6 +139,15 @@
 </section>
 
 
-
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script>
+    $(document).ready(function() {
+        var successMessage = '@TempData["SuccessMessage"]';
+        if (successMessage) {
+            alert(successMessage);
+        }
+    });
+</script>
 
 

@@ -21,17 +21,17 @@ namespace HealthHub2.Controllers
         // GET: Patient
         public ActionResult Index()
         {
-            return View(db.Patients.ToList());
+            return View(db.Patient.ToList());
         }
 
         // GET: Patient/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (id == null) 
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Patient patient = db.Patients.Find(id);
+            Patient patient = db.Patient.Find(id);
             if (patient == null)
             {
                 return HttpNotFound();
@@ -60,7 +60,7 @@ namespace HealthHub2.Controllers
                     string hashedPassword = PasswordHelper.HashPassword(patient.Password);
                     patient.Password = hashedPassword;
 
-                    db.Patients.Add(patient);
+                    db.Patient.Add(patient);
                     db.SaveChanges();  
                     TempData["SuccessMessage"] = "Register Succeed！";
                     return RedirectToAction("Login", "Patient");
@@ -88,7 +88,7 @@ namespace HealthHub2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Patient patient = db.Patients.Find(id);
+            Patient patient = db.Patient.Find(id);
             if (patient == null)
             {
                 return HttpNotFound();
@@ -119,7 +119,7 @@ namespace HealthHub2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Patient patient = db.Patients.Find(id);
+            Patient patient = db.Patient.Find(id);
             if (patient == null)
             {
                 return HttpNotFound();
@@ -132,8 +132,8 @@ namespace HealthHub2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Patient patient = db.Patients.Find(id);
-            db.Patients.Remove(patient);
+            Patient patient = db.Patient.Find(id);
+            db.Patient.Remove(patient);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -158,7 +158,7 @@ namespace HealthHub2.Controllers
 
             string hashedPassword = PasswordHelper.HashPassword(patient.Password);
 
-            var user = db.Patients.FirstOrDefault(u => u.Email == patient.Email && u.Password == hashedPassword);
+            var user = db.Patient.FirstOrDefault(u => u.Email == patient.Email && u.Password == hashedPassword);
 
 
             if (user != null)
@@ -168,7 +168,10 @@ namespace HealthHub2.Controllers
                 Session["Email"] = user.Email.ToString();
                 Session["LastName"] = user.LastName;
                 Session["Address"] = user.Address;
-                //Session["Status"] = user.Status;dddd
+                Session["Status"] = user.Status;
+
+                TempData["SuccessMessage"] = "Login Succeed！";
+
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -191,7 +194,7 @@ namespace HealthHub2.Controllers
                 return RedirectToAction("Login");
             }
 
-            var patient = db.Patients.Find(Convert.ToInt32(patientId));
+            var patient = db.Patient.Find(Convert.ToInt32(patientId));
             if (patient == null)
             {
                 return HttpNotFound();
@@ -206,7 +209,7 @@ namespace HealthHub2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var existingPatient = db.Patients.Find(patient.PatientId);
+                var existingPatient = db.Patient.Find(patient.PatientId);
                 if (existingPatient != null)
                 {
                     existingPatient.FirstName = patient.FirstName;
