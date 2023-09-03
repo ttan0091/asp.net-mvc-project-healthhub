@@ -198,6 +198,14 @@
     <Compile Include="Migrations\202309030854490_addgeolocationtoappointment.designer.cs">
       <DependentUpon>202309030854490_addgeolocationtoappointment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202309031220542_alterIDtoIdofdoctor.cs" />
+    <Compile Include="Migrations\202309031220542_alterIDtoIdofdoctor.designer.cs">
+      <DependentUpon>202309031220542_alterIDtoIdofdoctor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309031222449_alterIDtoIdofdoctoragain.cs" />
+    <Compile Include="Migrations\202309031222449_alterIDtoIdofdoctoragain.designer.cs">
+      <DependentUpon>202309031222449_alterIDtoIdofdoctoragain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Doctor.cs" />
@@ -542,6 +550,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202309030854490_addgeolocationtoappointment.resx">
       <DependentUpon>202309030854490_addgeolocationtoappointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309031220542_alterIDtoIdofdoctor.resx">
+      <DependentUpon>202309031220542_alterIDtoIdofdoctor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309031222449_alterIDtoIdofdoctoragain.resx">
+      <DependentUpon>202309031222449_alterIDtoIdofdoctoragain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

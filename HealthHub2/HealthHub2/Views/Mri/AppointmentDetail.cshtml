@@ -1,68 +1,68 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "AppointmentDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="auto-container" style="margin-top:150px; margin-bottom:120px;">
 
-    <h2>AppointmentDetail</h2>
+    <h2 class="mb-3">AppointmentDetail</h2>
 
-    <table class="table table-hover">
+    <div class="row">
+        <!-- 为了在lg分辨率下让表格占6格，在其他情况下占满，使用col-lg-6和col-12 -->
+        <div class="col-lg-6 col-12">
+            <table class="table table-hover table-bordered">
+                <tbody>
+                    <!-- Patient Details -->
+                    <tr>
+                        <td>Patient Name:</td>
+                        <td>@ViewBag.PatientFullName</td>
+                    </tr>
+                    <tr>
+                        <td>Patient Email:</td>
+                        <td>@ViewBag.PatientEmail</td>
+                    </tr>
+                    <tr>
+                        <td>Gender:</td>
+                        <td>@ViewBag.Appointment.Gender</td>
+                    </tr>
 
-        <tbody>
-            <!-- Patient Details -->
-            <tr>
-                <td>Patient Name</td>
-                <td>@ViewBag.PatientFullName</td>
-            </tr>
-            <tr>
-                <td>Patient Email</td>
-                <td>@ViewBag.PatientEmail</td>
-            </tr>
-            <tr>
-                <td>Gender</td>
-                <td>@ViewBag.Appointment.Gender</td>
-            </tr>
+                    <!-- Doctor Details -->
+                    <tr>
+                        <td>Doctor Name:</td>
+                        <td>@ViewBag.DoctorFullName</td>
+                    </tr>
+                    <tr>
+                        <td>Doctor Email:</td>
+                        <td>@ViewBag.DoctorEmail</td>
+                    </tr>
 
-            <!-- Doctor Details -->
-            <tr>
-                <td>Doctor Name</td>
-                <td>@ViewBag.DoctorFullName</td>
-            </tr>
-            <tr>
-                <td>Doctor Email</td>
-                <td>@ViewBag.DoctorEmail</td>
-            </tr>
+                    <!-- Location Details -->
+                    <tr>
+                        <td>Location:</td>
+                        <td>@ViewBag.PlaceName</td>
+                    </tr>
 
-            <!-- Location Details -->
-            <tr>
-                <td>Location</td>
-                <td>@ViewBag.PlaceName</td>
-            </tr>
+                    <tr>
+                        <td>Service Type:</td>
+                        <td>@ViewBag.Appointment.ServiceType</td>
+                    </tr>
+                    <tr>
+                        <td>Service Date:</td>
+                        <td>@ViewBag.Appointment.Date.ToString("dd/MM/yyyy")</td>
+                    </tr>
 
-            <tr>
-                <td>Service Type</td>
-                <td>@ViewBag.Appointment.ServiceType</td>
-            </tr>
-            <tr>
-                <td>Service Date</td>
-                <td>@ViewBag.Appointment.Date</td>
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td>@ViewBag.Appointment.Status</td>
-            </tr>
-            <tr>
-                <td>Note</td>
-                <td>@ViewBag.Appointment.Note</td>
-            </tr>
-
-
-
-
-        </tbody>
-    </table>
+                    <tr>
+                        <td>Status:</td>
+                        <td>@ViewBag.Appointment.Status</td>
+                    </tr>
+                    <tr>
+                        <td>Note:</td>
+                        <td>@ViewBag.Appointment.Note</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a href="@Url.Action("Index", "Appointment")" class="btn theme-btn mt-3 ">Back</a>
 
 </div>

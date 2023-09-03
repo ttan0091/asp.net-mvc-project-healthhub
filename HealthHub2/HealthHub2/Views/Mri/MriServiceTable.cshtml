@@ -12,6 +12,7 @@
 </style>
 
 
+
 <section class="appointment-page">
     <div class="auto-container">
         <div class="row">
@@ -68,7 +69,7 @@
                                 <div class="form-group">
                                     <div class="box">
                                         <select name="MRI">
-                                            <option value="1">MRI</option>
+                                            <option value="MRI">MRI</option>
                                         </select>
                                     </div>
                                     <span class="error-message" id="error-MRI"></span>
@@ -84,24 +85,39 @@
                                 <div class="form-group">
                                     <div class="box">
                                         <select name="DoctorName">
+
                                             <option value="0">Select Doctor</option>
+
                                             @foreach (var doctor in Model) // 使用 Model 来遍历所有的 Doctor 对象
                                             {
-                                                <option value="@doctor.DoctorID">@doctor.FirstName @doctor.LastName</option>
+                                                <option value="@doctor.DoctorId">@doctor.FirstName @doctor.LastName</option>
                                             }
                                         </select>
                                     </div>
                                     <span class="error-message" id="error-DoctorName"></span>
+
+                                    @if (ViewBag.Error != null)
+                                    {
+                                        <span class="error-message">@ViewBag.Error</span>
+                                    }
+                                    <span class="error-message" id="error-DoctorName"></span>
                                 </div>
 
                             </div>
+
+                            @*@if (ViewBag.Error != null)
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    @ViewBag.Error
+                                </div>
+                            }*@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <textarea name="NoteToDoctor" placeholder="Note to the doctor (optional)"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <input type="submit" value="Submit" class="btn theme-btn " />
+                                <input type="submit" class="btn theme-btn " value="Submit" />
                             </div>
                         </div>
                     </form>
@@ -117,35 +133,35 @@
 
 <script>
 
-document.addEventListener('DOMContentLoaded', function () {
-    // 设置日期输入的最小值为今天
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-    let yyyy = today.getFullYear();
+    document.addEventListener('DOMContentLoaded', function () {
+        // 设置日期输入的最小值为今天
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+        let yyyy = today.getFullYear();
 
-    today = yyyy + '-' + mm + '-' + dd;
-    document.querySelector('input[type="date"]').setAttribute("min", today);
+        today = yyyy + '-' + mm + '-' + dd;
+        document.querySelector('input[type="date"]').setAttribute("min", today);
 
-    document.getElementById('appointment-form').addEventListener('submit', function (e) {
-        let valid = true;
+        document.getElementById('appointment-form').addEventListener('submit', function (e) {
+            let valid = true;
 
-        const doctorName = document.querySelector('select[name="DoctorName"]').value;
+            const doctorName = document.querySelector('select[name="DoctorName"]').value;
 
-        if (doctorName === '1') {
-            document.getElementById('error-DoctorName').innerText = 'Please select a doctor';
-            valid = false;
-        } else {
-            document.getElementById('error-DoctorName').innerText = '';
-        }
+            if (doctorName === '0') {
+                document.getElementById('error-DoctorName').innerText = 'Please select a doctor';
+                valid = false;
+            } else {
+                document.getElementById('error-DoctorName').innerText = '';
+            }
 
-        // Existing validations go here ...
+            // Existing validations go here ...
 
-        if (!valid) {
-            e.preventDefault();
-        }
+            if (!valid) {
+                e.preventDefault();
+            }
+        });
     });
-});
 
 
     $(document).ready(function () {

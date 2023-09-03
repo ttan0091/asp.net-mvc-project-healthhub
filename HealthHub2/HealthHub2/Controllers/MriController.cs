@@ -41,14 +41,38 @@ namespace HealthHub2.Controllers
             return PartialView();
         }
 
-        //[HttpPost]
-        //public ActionResult BookMriService(string clinicLocation)
-        //{
+        [HttpGet]
+        public ActionResult MriServiceTable(int clinicLocation)
+        {
+            if (TempData["Error"] != null)
+            {
+                ViewBag.Error = TempData["Error"];
+            }
+            try
+            {
+                var doctors = db.Doctor.ToList();
 
+                // 根据 clinicLocation 从数据库中获取医院地址
+                var hospital = db.GeoLocation.Find(Convert.ToInt32(clinicLocation));
+                if (hospital != null)
+                {
+                    ViewBag.HospitalAddress = hospital.PlaceName;
+                }
+                else
+                {
+                    // Log: Hospital not found for given location
+                    return Content("No Hospital found"); ; // You can direct to an error page
+                }
 
-        //    //return Content(clinicLocation);
-        //    return View();
-        //}
+                return View(doctors);
+            }
+            catch (Exception ex)
+            {
+                // Log: ex.Message
+                return Content("Error");
+            }
+        }
+
 
 
         [HttpPost]
@@ -91,6 +115,26 @@ namespace HealthHub2.Controllers
         {
             try
             {
+
+                //检查是否有在同一天、同一医生和同一医院的预约
+               var existingAppointments = db.Appointment.Where(a => a.DoctorId == DoctorName
+                                                                      && a.LocationId == HospitalAddress
+                                                                      && a.Date == Date).ToList();
+
+                if (existingAppointments.Any())
+                {
+                    var firstname=db.Doctor.Find(DoctorName).FirstName.ToString();
+                    var lastname = db.Doctor.Find(DoctorName).LastName.ToString();
+
+                    //return Content("hhh");
+                    //TempData["Error"] = "The doctor is already booked for this day at this location. Please choose another day or doctor.";
+                    string errorMessage = $"The doctor ({firstname+" "+ lastname}) is already booked for this day ({Date.ToShortDateString()}) at this location. Please choose another day or doctor.";
+                    TempData["Error"] = errorMessage;
+
+                    return RedirectToAction("MriServiceTable", "Mri", new { clinicLocation = HospitalAddress });
+                }
+
+
                 // 创建一个新的 Appointment 对象
                 Appointment appointment = new Appointment();
 
@@ -122,6 +166,7 @@ namespace HealthHub2.Controllers
         {
             try
             {
+
                 // 获取 TempData 中的 Appointment 对象
                 Appointment appointment = TempData["AppointmentData"] as Appointment;
 

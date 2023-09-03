@@ -12,7 +12,7 @@ namespace HealthHub2.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int DoctorID { get; set; }
+        public int DoctorId { get; set; }
 
         [Required]
         [StringLength(50)]

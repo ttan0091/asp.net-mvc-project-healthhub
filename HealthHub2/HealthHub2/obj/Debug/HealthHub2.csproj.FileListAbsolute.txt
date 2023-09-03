@@ -383,3 +383,5 @@ C:\Users\谈韬\Desktop\FIT5032-dev\HealthHub2\HealthHub2\obj\Debug\HealthHub2.M
 C:\Users\谈韬\Desktop\FIT5032-dev\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migrations.addgeolocationtoappointment.resources
 C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migrations.deleteservicetypeentity.resources
 C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migrations.addgeolocationtoappointment.resources
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migrations.alterIDtoIdofdoctor.resources
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migrations.alterIDtoIdofdoctoragain.resources
