@@ -6,11 +6,19 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using HealthHub2.Context;
 using HealthHub2.Models;
 using HealthHub2.Utility;
+//using Microsoft.Owin.Security;
+//using Microsoft.Owin.Security.Cookies;
+//using Microsoft.Owin;
+//using Microsoft.Owin.Security.Google;
+//using Owin;
+//using Microsoft.Owin.Security.OAuth;
+//using Microsoft.Owin.Host.SystemWeb;
 
 namespace HealthHub2.Controllers
 {
@@ -45,9 +53,7 @@ namespace HealthHub2.Controllers
             return View();
         }
 
-        // POST: Patient/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PatientId,FirstName,LastName,Password,Email,Address,Status")] Patient patient)
@@ -96,9 +102,7 @@ namespace HealthHub2.Controllers
             return View(patient);
         }
 
-        // POST: Patient/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PatientId,FirstName,LastName,Password,Email,Address")] Patient patient)
@@ -243,6 +247,92 @@ namespace HealthHub2.Controllers
 
             return View(patient);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //// 这个方法用于重定向用户到 Google 的登录页
+        //public ActionResult ExternalLogin(string provider)
+        //{
+        //    return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Patient"));
+        //}
+
+
+        ////private IAuthenticationManager AuthenticationManager
+        ////{
+        ////    get { return HttpContext.GetOwinContext().Authentication; }
+        ////}
+        //// 这个方法是 Google 登录成功后的回调
+        //public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+        //{
+        //    // 你可以在这里获取来自 Google 的用户信息
+        //    // 然后，你可以检查数据库中是否有匹配的用户，并进行相应的操作（创建新用户，或者更新现有用户等）
+
+        //    // 这里是一个简单示例：
+        //    var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+        //    if (loginInfo == null)
+        //    {
+        //        return RedirectToAction("Login");
+        //    }
+
+        //    // 以下为模拟代码，你需要根据你的数据库模型进行适当的更改
+        //    var user = db.Patient.FirstOrDefault(u => u.Email == loginInfo.Email);
+        //    if (user != null)
+        //    {
+        //        // 用户存在，登录用户
+        //        // （这里应该设置相应的 Session 等）
+        //        Session["PatientId"] = user.PatientId.ToString();
+        //        Session["FirstName"] = user.FirstName;
+        //        // ... 其他 Session 设置
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    else
+        //    {
+        //        // 用户不存在，创建新用户
+        //        // （这里应该保存用户到数据库，并设置相应的 Session 等）
+        //        return RedirectToAction("Create", "Patient");
+        //    }
+        //}
+
+        //private IAuthenticationManager AuthenticationManager
+        //{
+        //    get { return HttpContext.GetOwinContext().Authentication; }
+        //}
+
+        //private class ChallengeResult : HttpUnauthorizedResult
+        //{
+        //    public ChallengeResult(string provider, string redirectUri)
+        //    {
+        //        LoginProvider = provider;
+        //        RedirectUri = redirectUri;
+        //    }
+
+        //    public string LoginProvider { get; set; }
+        //    public string RedirectUri { get; set; }
+
+        //    public override void ExecuteResult(ControllerContext context)
+        //    {
+        //        var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
+        //        context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
+        //    }
+        //}
+
+
+
+
 
     }
 }
