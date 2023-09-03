@@ -17,7 +17,6 @@ namespace HealthHub2.Context
         public DbSet<Models.Doctor> Doctor { get; set; }
         public DbSet<Models.Patient> Patient { get; set; }
         public DbSet<Models.Rating> Rating { get; set; }
-        public DbSet<Models.ServiceType> ServiceType { get; set; }
         public DbSet<Models.MedicalImage> MedicalImage { get; set; }
         public DbSet<Models.Appointment> Appointment { get; set; }
         public DbSet<Models.GeoLocation> GeoLocation { get; set; }

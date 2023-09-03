@@ -14,7 +14,12 @@ namespace HealthHub2.Models
         public int ImageId { get; set; }
 
         [Required]
+        [ForeignKey("Patient")]
         public int PatientId { get; set; }
+
+        [Required]
+        [ForeignKey("Doctor")]
+        public int DoctorId { get; set; }
 
         [Required]
         public int ServiceId { get; set; }
@@ -26,10 +31,10 @@ namespace HealthHub2.Models
         public string ImageUrl { get; set; }
 
         // Foreign Key relationships
-        [ForeignKey("PatientId")]
+       
         public virtual Patient Patient { get; set; }
 
-        [ForeignKey("ServiceId")]
-        public virtual ServiceType ServiceType { get; set; }
+        public virtual Doctor Doctor { get; set; }
+
     }
 }

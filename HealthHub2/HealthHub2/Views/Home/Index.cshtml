@@ -141,13 +141,20 @@
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
+
 <script>
-    $(document).ready(function() {
-        var successMessage = '@TempData["SuccessMessage"]';
-        if (successMessage) {
-            alert(successMessage);
-        }
-    });
+        $(document).ready(function() {
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage) {
+                alert(successMessage);
+            }
+        });
 </script>
+
+
+
+
+
+
 
 

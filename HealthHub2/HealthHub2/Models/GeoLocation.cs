@@ -15,6 +15,7 @@ namespace HealthHub2.Models
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Hospital Name")]
         public string PlaceName { get; set; }
 
         [Required]

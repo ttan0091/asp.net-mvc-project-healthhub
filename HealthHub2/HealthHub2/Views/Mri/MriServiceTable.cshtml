@@ -1,0 +1,206 @@
+﻿@model IEnumerable<HealthHub2.Models.Doctor>
+@{
+    ViewBag.Title = "MriServiceTable";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<style>
+    .error-message {
+        color: red;
+        font-size: 12px;
+    }
+</style>
+
+
+<section class="appointment-page">
+    <div class="auto-container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="wrapper-box">
+                    <form id="appointment-form" action="@Url.Action("SubmitAppointment", "Mri")" method="post">
+                        <h4 class="group-title">Your Information:</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="PatientName" value="@Session["FirstName"] @Session["LastName"]" placeholder="Patient name">
+                                    <i class="fas fa-user-edit"></i>
+                                    <span class="error-message" id="error-PatientName"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" name="Email" value="@Session["Email"]" placeholder="Email">
+                                    <i class="fas fa-at"></i>
+                                    <span class="error-message" id="error-Email"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group-two">
+                                    <h5>Gender</h5>
+                                    <ul class="select-box">
+                                        <li>
+                                            <div class="single-checkbox">
+                                                <input type="radio" name="Gender" id="Male" value="Male">
+                                                <label for="Male"><span></span>Male</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="single-checkbox">
+                                                <input type="radio" name="Gender" id="Female" value="Female">
+                                                <label for="Female"><span></span>Female</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <span class="error-message" id="error-Gender"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="box">
+                                        <select name="HospitalAddress">
+                                            <option value="1">@ViewBag.HospitalAddress</option>
+                                        </select>
+                                    </div>
+                                    <span class="error-message" id="error-HospitalAddress"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="box">
+                                        <select name="MRI">
+                                            <option value="1">MRI</option>
+                                        </select>
+                                    </div>
+                                    <span class="error-message" id="error-MRI"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="date" name="Date" placeholder="DD/MM/YYYY">
+                                    <span class="error-message" id="error-Date"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="box">
+                                        <select name="DoctorName">
+                                            <option value="0">Select Doctor</option>
+                                            @foreach (var doctor in Model) // 使用 Model 来遍历所有的 Doctor 对象
+                                            {
+                                                <option value="@doctor.DoctorID">@doctor.FirstName @doctor.LastName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <span class="error-message" id="error-DoctorName"></span>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name="NoteToDoctor" placeholder="Note to the doctor (optional)"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" value="Submit" class="btn theme-btn " />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@Scripts.Render("~/bundles/jquery")
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+    // 设置日期输入的最小值为今天
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    let yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    document.querySelector('input[type="date"]').setAttribute("min", today);
+
+    document.getElementById('appointment-form').addEventListener('submit', function (e) {
+        let valid = true;
+
+        const doctorName = document.querySelector('select[name="DoctorName"]').value;
+
+        if (doctorName === '1') {
+            document.getElementById('error-DoctorName').innerText = 'Please select a doctor';
+            valid = false;
+        } else {
+            document.getElementById('error-DoctorName').innerText = '';
+        }
+
+        // Existing validations go here ...
+
+        if (!valid) {
+            e.preventDefault();
+        }
+    });
+});
+
+
+    $(document).ready(function () {
+        $('#appointment-form').submit(function (e) {
+            let isValid = true;
+
+            // 清除所有旧的错误信息
+            $('.error-message').text('');
+
+            // 检查PatientName字段是否为空
+            if ($('input[name="PatientName"]').val() === "") {
+                $('#error-PatientName').text('Patient name is required.');
+                isValid = false;
+            }
+
+            // 检查Email字段是否为空
+            if ($('input[name="Email"]').val() === "") {
+                $('#error-Email').text('Email is required.');
+                isValid = false;
+            }
+
+            // 检查Gender字段是否被选中
+            if (!$('input[name="Gender"]:checked').val()) {
+                $('#error-Gender').text('Gender is required.');
+                isValid = false;
+            }
+
+            // 检查HospitalAddress字段是否为空
+            if ($('select[name="HospitalAddress"]').val() === "") {
+                $('#error-HospitalAddress').text('Hospital address is required.');
+                isValid = false;
+            }
+
+            // 检查MRI字段是否为空
+            if ($('select[name="MRI"]').val() === "") {
+                $('#error-MRI').text('MRI is required.');
+                isValid = false;
+            }
+
+            // 检查Date字段是否为空
+            if ($('input[name="Date"]').val() === "") {
+                $('#error-Date').text('Date is required.');
+                isValid = false;
+            }
+
+            // 检查DoctorName字段是否为空
+            if ($('select[name="DoctorName"]').val() === "0") {
+                $('#error-DoctorName').text('Doctor name is required.');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+

@@ -23,8 +23,11 @@ namespace HealthHub2.Models
         public int DoctorId { get; set; }
 
         [Required]
-        [ForeignKey("ServiceType")]
-        public int ServiceId { get; set; }
+        [ForeignKey("GeoLocation")]
+        public int LocationId { get; set; }
+
+        [Required]
+        public string ServiceType { get; set; }
 
         [Required]
         //[Column(TypeName = "date")]
@@ -33,16 +36,12 @@ namespace HealthHub2.Models
         [Required]
         [StringLength(50)]
         public string Status { get; set; }
+        public string Note { get; set; }
+        public string Gender { get; set; }
 
         // Navigation Properties for Foreign Key relationships
         public virtual Patient Patient { get; set; }
         public virtual Doctor Doctor { get; set; }
-        public virtual ServiceType ServiceType { get; set; }
+        public virtual GeoLocation GeoLocation { get; set; }
     }
-    
-
-
-
-
-
 }
