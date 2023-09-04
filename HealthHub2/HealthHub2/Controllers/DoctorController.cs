@@ -102,8 +102,12 @@ namespace HealthHub2.Controllers
             {
                 return RedirectToAction("Login", "Admin");
             }
+
             if (ModelState.IsValid)
             {
+                string hashedPassword = PasswordHelper.HashPassword(doctor.Password);
+                doctor.Password = hashedPassword;
+
                 db.Entry(doctor).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -3,6 +3,7 @@ using HealthHub2.Models;
 using HealthHub2.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -210,18 +211,17 @@ namespace HealthHub2.Controllers
 
 
 
-        [HttpPost]
-        public ActionResult BookConsultation(string clinicLocation)
+        //[HttpPost]
+        //public ActionResult BookConsultation(string clinicLocation)
+        //{
+        //    ViewBag.ClinicLocation = clinicLocation;
+
+        //    return PartialView();
+        //}
+
+
+        public ActionResult CheckImages(string sortOrder)
         {
-            ViewBag.ClinicLocation = clinicLocation;
-
-            return PartialView();
-        }
-
-
-        public ActionResult CheckImages()
-        {
-
             if (Session["PatientId"] == null)
             {
                 return RedirectToAction("Login", "Patient");
@@ -229,45 +229,68 @@ namespace HealthHub2.Controllers
 
             int patientId = Convert.ToInt32(Session["PatientId"]);
 
-            var appointments = db.Appointment
-                                .Where(a => a.PatientId == patientId)
-                                .ToList();
+            IQueryable<Appointment> query = db.Appointment
+                                              .Include("Doctor")
+                                              .Include("Patient")
+                                              .Include("GeoLocation")
+                                              .Where(a => a.PatientId == patientId);
+
+            switch (sortOrder)
+            {
+                case "date_asc":
+                    query = query.OrderBy(a => a.Date);
+                    break;
+                case "date_desc":
+                    query = query.OrderByDescending(a => a.Date);
+                    break;
+                case "upload_asc":
+                    query = query.OrderBy(a => a.UploadDate.HasValue).ThenBy(a => a.UploadDate);
+                    break;
+                case "upload_desc":
+                    query = query.OrderByDescending(a => a.UploadDate.HasValue).ThenByDescending(a => a.UploadDate);
+                    break;
+                default:
+                    query = query.OrderBy(a => a.Date); // 默认排序方式
+                    break;
+            }
+
+            var appointments = query.ToList();
 
             var medicalImagesInfo = new List<MedicalImageInfoViewModel>();
 
             foreach (var appointment in appointments)
             {
-                var medicalImages = db.MedicalImage
-                                      .Where(mi => mi.AppointmentId == appointment.AppointmentId)
-                                      .ToList();
-
-                foreach (var medicalImage in medicalImages)
+                var imageInfo = new MedicalImageInfoViewModel
                 {
-                    var geoLocation = db.GeoLocation.FirstOrDefault(gl => gl.LocationId == appointment.LocationId);
+                    DoctorFullName = appointment.Doctor.FirstName + " " + appointment.Doctor.LastName,
+                    ServiceType = appointment.ServiceType,
+                    PlaceName = appointment.GeoLocation.PlaceName, // Assuming GeoLocation has a Name property
+                    ImageUrl = appointment.ImageUrl,
+                    AppointmentDate = appointment.Date.ToString("dd/MM/yyyy"), // Format as you prefer
+                    UploadDate = appointment.UploadDate.HasValue ? appointment.UploadDate.Value.ToString("dd/MM/yyyy") : "N/A",
+                    Note = appointment.Note,
+                    Status = appointment.Status,
+                    PatientFullName = appointment.Patient.FirstName + " " + appointment.Patient.LastName,
+                };
 
-                    medicalImagesInfo.Add(new MedicalImageInfoViewModel
-                    {
-                        CaptureDate = medicalImage.CaptureDate.ToString("dd-MM-yyyy"),
-                        ImageUrl = medicalImage.ImageUrl,
-                        DoctorFullName = appointment.Doctor.FirstName + " " + appointment.Doctor.LastName,
-                        ServiceType = appointment.ServiceType,
-                        PlaceName = geoLocation != null ? geoLocation.PlaceName : "Unknown location"
-                    });
-                }
+                medicalImagesInfo.Add(imageInfo);
             }
 
             return PartialView(medicalImagesInfo);
         }
 
-        public ActionResult CheckConsultation()
-        {
-            return PartialView();
-        }
 
-        public ActionResult CheckBills()
-        {
-            return PartialView();
-        }
+
+
+        //public ActionResult CheckConsultation()
+        //{
+        //    return PartialView();
+        //}
+
+        //public ActionResult CheckBills()
+        //{
+        //    return PartialView();
+        //}
 
         public ActionResult SendEmail()
         {

@@ -388,3 +388,6 @@ C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migra
 C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migrations.removepatientidfrommedicalimages.resources
 C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migrations.addadminaccount.resources
 C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migrations.addadminaccountindeed.resources
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migrations.addimagetoappointment.resources
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migrations.removetablemedicalimage.resources
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migrations.alterdatetimetonullable.resources

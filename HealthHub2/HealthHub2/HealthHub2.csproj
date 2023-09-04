@@ -148,6 +148,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Context\HealthHubContext.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MriController.cs" />
@@ -219,12 +220,23 @@
     <Compile Include="Migrations\202309040908523_addadminaccountindeed.designer.cs">
       <DependentUpon>202309040908523_addadminaccountindeed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202309041108489_addimagetoappointment.cs" />
+    <Compile Include="Migrations\202309041108489_addimagetoappointment.designer.cs">
+      <DependentUpon>202309041108489_addimagetoappointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309041113582_removetablemedicalimage.cs" />
+    <Compile Include="Migrations\202309041113582_removetablemedicalimage.designer.cs">
+      <DependentUpon>202309041113582_removetablemedicalimage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309041130231_alterdatetimetonullable.cs" />
+    <Compile Include="Migrations\202309041130231_alterdatetimetonullable.designer.cs">
+      <DependentUpon>202309041130231_alterdatetimetonullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\GeoLocation.cs" />
-    <Compile Include="Models\MedicalImage.cs" />
     <Compile Include="Models\MedicalImageInfoViewModel.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\Rating.cs" />
@@ -508,6 +520,11 @@
     <Content Include="Views\Doctor\Login.cshtml" />
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Appointment\Create.cshtml" />
+    <Content Include="Views\Appointment\Delete.cshtml" />
+    <Content Include="Views\Appointment\Details.cshtml" />
+    <Content Include="Views\Appointment\Edit.cshtml" />
+    <Content Include="Views\Appointment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -584,6 +601,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202309040908523_addadminaccountindeed.resx">
       <DependentUpon>202309040908523_addadminaccountindeed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309041108489_addimagetoappointment.resx">
+      <DependentUpon>202309041108489_addimagetoappointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309041113582_removetablemedicalimage.resx">
+      <DependentUpon>202309041113582_removetablemedicalimage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309041130231_alterdatetimetonullable.resx">
+      <DependentUpon>202309041130231_alterdatetimetonullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

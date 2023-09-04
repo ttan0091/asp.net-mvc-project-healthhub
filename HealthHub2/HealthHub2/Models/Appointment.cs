@@ -24,9 +24,11 @@ namespace HealthHub2.Models
 
         [Required]
         [ForeignKey("GeoLocation")]
+        [Display(Name = "Clinic Name")]
         public int LocationId { get; set; }
 
         [Required]
+        [Display(Name = "Service Type")]
         public string ServiceType { get; set; }
 
         [Required]
@@ -36,8 +38,18 @@ namespace HealthHub2.Models
         [Required]
         [StringLength(50)]
         public string Status { get; set; }
+
         public string Note { get; set; }
+
         public string Gender { get; set; }
+
+        [Display(Name = "Image")]
+        public string ImageUrl { get; set; }
+
+        [Display(Name = "Upload Date")]
+        public DateTime? UploadDate{ get; set; }
+
+
 
         // Navigation Properties for Foreign Key relationships
         public virtual Patient Patient { get; set; }

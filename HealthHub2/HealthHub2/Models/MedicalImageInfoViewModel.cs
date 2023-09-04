@@ -4,8 +4,7 @@ namespace HealthHub2.ViewModels
 {
     public class MedicalImageInfoViewModel
     {
-        [DisplayName("Capture Date")]
-        public string CaptureDate { get; set; }
+
 
         [DisplayName("Doctor Name")]
         public string DoctorFullName { get; set; }
@@ -18,5 +17,22 @@ namespace HealthHub2.ViewModels
 
         [DisplayName("Medical Image")]
         public string ImageUrl { get; set; }
+
+        [DisplayName("Appointment Date")]
+        public string AppointmentDate { get; set; }
+
+        [DisplayName("Upload Date")]
+        public string UploadDate { get; set; }
+
+        [DisplayName("Note")]
+        public string Note { get; set; }
+
+        [DisplayName("Status")]
+        public string Status { get; set; }
+
+        [DisplayName("Patient Name")]
+        public string PatientFullName { get; set; }
+
+
     }
 }
