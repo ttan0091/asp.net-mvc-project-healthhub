@@ -147,6 +147,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Context\HealthHubContext.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MriController.cs" />
@@ -206,11 +207,25 @@
     <Compile Include="Migrations\202309031222449_alterIDtoIdofdoctoragain.designer.cs">
       <DependentUpon>202309031222449_alterIDtoIdofdoctoragain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202309040244051_removepatientidfrommedicalimages.cs" />
+    <Compile Include="Migrations\202309040244051_removepatientidfrommedicalimages.designer.cs">
+      <DependentUpon>202309040244051_removepatientidfrommedicalimages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309040908034_addadminaccount.cs" />
+    <Compile Include="Migrations\202309040908034_addadminaccount.designer.cs">
+      <DependentUpon>202309040908034_addadminaccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309040908523_addadminaccountindeed.cs" />
+    <Compile Include="Migrations\202309040908523_addadminaccountindeed.designer.cs">
+      <DependentUpon>202309040908523_addadminaccountindeed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\GeoLocation.cs" />
     <Compile Include="Models\MedicalImage.cs" />
+    <Compile Include="Models\MedicalImageInfoViewModel.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\Rating.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -489,6 +504,10 @@
     <Content Include="Views\Doctor\Index.cshtml" />
     <Content Include="Views\Mri\MriServiceTable.cshtml" />
     <Content Include="Views\Mri\AppointmentDetail.cshtml" />
+    <Content Include="Views\Mri\CheckImages.cshtml" />
+    <Content Include="Views\Doctor\Login.cshtml" />
+    <Content Include="Views\Admin\Create.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -556,6 +575,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202309031222449_alterIDtoIdofdoctoragain.resx">
       <DependentUpon>202309031222449_alterIDtoIdofdoctoragain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309040244051_removepatientidfrommedicalimages.resx">
+      <DependentUpon>202309040244051_removepatientidfrommedicalimages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309040908034_addadminaccount.resx">
+      <DependentUpon>202309040908034_addadminaccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309040908523_addadminaccountindeed.resx">
+      <DependentUpon>202309040908523_addadminaccountindeed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

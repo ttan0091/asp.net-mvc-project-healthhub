@@ -14,15 +14,8 @@ namespace HealthHub2.Models
         public int ImageId { get; set; }
 
         [Required]
-        [ForeignKey("Patient")]
-        public int PatientId { get; set; }
-
-        [Required]
-        [ForeignKey("Doctor")]
-        public int DoctorId { get; set; }
-
-        [Required]
-        public int ServiceId { get; set; }
+        [ForeignKey("Appointment")]
+        public int AppointmentId { get; set; }
 
         [Required]
         public DateTime CaptureDate { get; set; }
@@ -31,10 +24,6 @@ namespace HealthHub2.Models
         public string ImageUrl { get; set; }
 
         // Foreign Key relationships
-       
-        public virtual Patient Patient { get; set; }
-
-        public virtual Doctor Doctor { get; set; }
-
+        public virtual Appointment Appointment { get; set; }
     }
 }

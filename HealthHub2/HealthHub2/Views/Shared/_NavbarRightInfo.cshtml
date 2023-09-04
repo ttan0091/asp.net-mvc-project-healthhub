@@ -11,6 +11,18 @@
             </a>
         </div>
     }
+    else if (Session["AdminId"] != null)
+    {
+        <div class="link-btn">
+            <a href="@Url.Action("Index", "Doctor")" class="" style=" text-decoration: underline;">
+                Hi, Admin!
+            </a>
+            <!-- Logout Button -->
+            <a href="@Url.Action("Logout", "Patient")" class="m-2" style=" ">
+                Logout
+            </a>
+        </div>
+    }
     else
     {
         <div class="link-btn">

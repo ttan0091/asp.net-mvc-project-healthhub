@@ -1,5 +1,6 @@
 ﻿using HealthHub2.Context;
 using HealthHub2.Models;
+using HealthHub2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -217,9 +218,45 @@ namespace HealthHub2.Controllers
             return PartialView();
         }
 
+
         public ActionResult CheckImages()
         {
-            return PartialView();
+
+            if (Session["PatientId"] == null)
+            {
+                return RedirectToAction("Login", "Patient");
+            }
+
+            int patientId = Convert.ToInt32(Session["PatientId"]);
+
+            var appointments = db.Appointment
+                                .Where(a => a.PatientId == patientId)
+                                .ToList();
+
+            var medicalImagesInfo = new List<MedicalImageInfoViewModel>();
+
+            foreach (var appointment in appointments)
+            {
+                var medicalImages = db.MedicalImage
+                                      .Where(mi => mi.AppointmentId == appointment.AppointmentId)
+                                      .ToList();
+
+                foreach (var medicalImage in medicalImages)
+                {
+                    var geoLocation = db.GeoLocation.FirstOrDefault(gl => gl.LocationId == appointment.LocationId);
+
+                    medicalImagesInfo.Add(new MedicalImageInfoViewModel
+                    {
+                        CaptureDate = medicalImage.CaptureDate.ToString("dd-MM-yyyy"),
+                        ImageUrl = medicalImage.ImageUrl,
+                        DoctorFullName = appointment.Doctor.FirstName + " " + appointment.Doctor.LastName,
+                        ServiceType = appointment.ServiceType,
+                        PlaceName = geoLocation != null ? geoLocation.PlaceName : "Unknown location"
+                    });
+                }
+            }
+
+            return PartialView(medicalImagesInfo);
         }
 
         public ActionResult CheckConsultation()

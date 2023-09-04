@@ -20,6 +20,7 @@ namespace HealthHub2.Context
         public DbSet<Models.MedicalImage> MedicalImage { get; set; }
         public DbSet<Models.Appointment> Appointment { get; set; }
         public DbSet<Models.GeoLocation> GeoLocation { get; set; }
+        public DbSet<Models.Admin> Admin { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

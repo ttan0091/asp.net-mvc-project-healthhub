@@ -19,6 +19,10 @@ namespace HealthHub2.Controllers
         // GET: Doctor
         public ActionResult Index()
         {
+            if (Session["AdminId"] == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             return View(db.Doctor.ToList());
         }
 
@@ -50,6 +54,10 @@ namespace HealthHub2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "DoctorID,FirstName,LastName,Password,Email,Department,Status")] Doctor doctor)
         {
+            if (Session["AdminId"] == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             if (ModelState.IsValid)
             {
                 // 使用PasswordHelper来加密密码
@@ -67,6 +75,10 @@ namespace HealthHub2.Controllers
         // GET: Doctor/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["AdminId"] == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -86,6 +98,10 @@ namespace HealthHub2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "DoctorID,FirstName,LastName,Password,Email,Department,Status")] Doctor doctor)
         {
+            if (Session["AdminId"] == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(doctor).State = EntityState.Modified;
@@ -98,6 +114,10 @@ namespace HealthHub2.Controllers
         // GET: Doctor/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["AdminId"] == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -115,6 +135,10 @@ namespace HealthHub2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["AdminId"] == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             Doctor doctor = db.Doctor.Find(id);
             db.Doctor.Remove(doctor);
             db.SaveChanges();
@@ -129,5 +153,40 @@ namespace HealthHub2.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        public ActionResult Login()
+        {
+              return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(Doctor doctor)
+        {
+            string hashedPassword = PasswordHelper.HashPassword(doctor.Password);
+            var user = db.Doctor.FirstOrDefault(u => u.Email == doctor.Email && u.Password == hashedPassword);
+
+            if (user != null)
+            {
+                Session.Clear();
+                // set session variables
+                Session["DoctorId"] = user.DoctorId.ToString();
+                Session["FirstName"] = user.FirstName;
+                Session["Email"] = user.Email.ToString();
+                Session["LastName"] = user.LastName;
+                Session["Status"] = user.Status;
+
+                TempData["SuccessMessage"] = "Login Succeed！";
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Email or Password is wrong.");
+                return View(doctor);
+            }
+        }
+
+
+
     }
 }

@@ -160,6 +160,7 @@ namespace HealthHub2.Controllers
 
             if (user != null)
             {
+                Session.Clear();
                 // set session variables
                 Session["PatientId"] = user.PatientId.ToString();
                 Session["FirstName"] = user.FirstName;
@@ -176,7 +177,6 @@ namespace HealthHub2.Controllers
                 ModelState.AddModelError("", "Email or Password is wrong.");
                 return View(patient);
             }
-          
         }
 
         public ActionResult Logout()
