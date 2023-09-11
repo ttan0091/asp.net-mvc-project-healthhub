@@ -182,6 +182,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminAppointmentController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminPatientController.cs" />
+    <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -489,6 +493,23 @@
     <Content Include="Views\Appointments\CheckImages.cshtml" />
     <Content Include="Views\Doctor\Index.cshtml" />
     <Content Include="Views\Doctor\CheckMriAppointments.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\ManageDoctors.cshtml" />
+    <Content Include="Views\AdminUser\Create.cshtml" />
+    <Content Include="Views\AdminUser\Delete.cshtml" />
+    <Content Include="Views\AdminUser\Details.cshtml" />
+    <Content Include="Views\AdminUser\Edit.cshtml" />
+    <Content Include="Views\AdminUser\Index.cshtml" />
+    <Content Include="Views\AdminPatient\Create.cshtml" />
+    <Content Include="Views\AdminPatient\Delete.cshtml" />
+    <Content Include="Views\AdminPatient\Details.cshtml" />
+    <Content Include="Views\AdminPatient\Edit.cshtml" />
+    <Content Include="Views\AdminPatient\Index.cshtml" />
+    <Content Include="Views\AdminAppointment\Create.cshtml" />
+    <Content Include="Views\AdminAppointment\Delete.cshtml" />
+    <Content Include="Views\AdminAppointment\Details.cshtml" />
+    <Content Include="Views\AdminAppointment\Edit.cshtml" />
+    <Content Include="Views\AdminAppointment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202309100422470_InitialCreate.resx">

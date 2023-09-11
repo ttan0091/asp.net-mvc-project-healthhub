@@ -84,17 +84,17 @@ namespace HealthHub2.Controllers
 
                     if (roles.Contains("patient"))
                     {
-                        // 如果用户是患者，将其导航到Home控制器的Index方法
+                      
                         return RedirectToAction("Index", "Home");
                     }
                     else if(roles.Contains("doctor"))
                     {
-                        // 如果用户不是患者，可以将其导航到其他适当的位置
+                        
                         return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Admin");
                     }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -176,18 +176,34 @@ namespace HealthHub2.Controllers
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateDoctor(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    // 添加用户到 "doctor" 角色
+                    await UserManager.AddToRoleAsync(user.Id, "doctor");
+
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    return RedirectToAction("Index", "AdminUser");
+                }
+                AddErrors(result);
+            }
+
             return View(model);
         }
 

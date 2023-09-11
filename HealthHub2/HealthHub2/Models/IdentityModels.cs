@@ -47,5 +47,6 @@ namespace HealthHub2.Models
         {
             return new ApplicationDbContext();
         }
+
     }
 }
