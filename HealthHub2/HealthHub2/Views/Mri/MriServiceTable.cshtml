@@ -1,9 +1,14 @@
-﻿@model IEnumerable<HealthHub2.Models.Doctor>
+﻿
+@using Microsoft.AspNet.Identity;
+
+
 @{
     ViewBag.Title = "MriServiceTable";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
+
+
 <style>
     .error-message {
         color: red;
@@ -18,23 +23,25 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="wrapper-box">
-                    <form id="appointment-form" action="@Url.Action("SubmitAppointment", "Mri")" method="post">
+                    <form id="appointment-form" action="@Url.Action("Create", "Appointments")" method="post">
+                        @Html.AntiForgeryToken()
                         <h4 class="group-title">Your Information:</h4>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="PatientName" value="@Session["FirstName"] @Session["LastName"]" placeholder="Patient name">
+                                    <input type="text" name="PatientName" placeholder="Patient name">
                                     <i class="fas fa-user-edit"></i>
                                     <span class="error-message" id="error-PatientName"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="email" name="Email" value="@Session["Email"]" placeholder="Email">
+                                    <input type="text" name="Email" value="@User.Identity.GetUserName()" placeholder="Email" readonly>
                                     <i class="fas fa-at"></i>
                                     <span class="error-message" id="error-Email"></span>
                                 </div>
                             </div>
+
                             <div class="col-md-12">
                                 <div class="form-group-two">
                                     <h5>Gender</h5>
@@ -58,7 +65,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="box">
-                                        <select name="HospitalAddress">
+                                        <select name="LocationId">
                                             <option value="1">@ViewBag.HospitalAddress</option>
                                         </select>
                                     </div>
@@ -84,28 +91,24 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="box">
-                                        <select name="DoctorName">
-
+                                        <select name="DoctorId">
                                             <option value="0">Select Doctor</option>
-
-                                            @foreach (var doctor in Model) // 使用 Model 来遍历所有的 Doctor 对象
+                                            @foreach (var doctor in ViewBag.Doctors)
                                             {
-                                                <option value="@doctor.DoctorId">@doctor.FirstName @doctor.LastName</option>
+                                                <option value="@doctor.Id">@doctor.FirstName @doctor.LastName</option>
                                             }
                                         </select>
                                     </div>
-                                    <span class="error-message" id="error-DoctorName"></span>
-
                                     @if (ViewBag.Error != null)
                                     {
                                         <span class="error-message">@ViewBag.Error</span>
                                     }
                                     <span class="error-message" id="error-DoctorName"></span>
                                 </div>
-
                             </div>
 
-                   
+
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <textarea name="NoteToDoctor" placeholder="Note to the doctor (optional)"></textarea>
@@ -185,7 +188,7 @@
             }
 
             // 检查HospitalAddress字段是否为空
-            if ($('select[name="HospitalAddress"]').val() === "") {
+            if ($('select[name="LocationId"]').val() === "") {
                 $('#error-HospitalAddress').text('Hospital address is required.');
                 isValid = false;
             }
@@ -203,7 +206,7 @@
             }
 
             // 检查DoctorName字段是否为空
-            if ($('select[name="DoctorName"]').val() === "0") {
+            if ($('select[name="DoctorId"]').val() === "0") {
                 $('#error-DoctorName').text('Doctor name is required.');
                 isValid = false;
             }
@@ -214,4 +217,5 @@
         });
     });
 </script>
+
 

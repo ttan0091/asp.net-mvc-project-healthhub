@@ -1,0 +1,66 @@
+﻿@using  Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "AppointmentDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AppointmentDetails</h2>
+
+
+<div class="row">
+    <!-- 为了在lg分辨率下让表格占6格，在其他情况下占满，使用col-lg-6和col-12 -->
+    <div class="col-lg-6 col-12">
+        <table class="table table-hover">
+            <tbody>
+                
+                <tr>
+                    <td>Patient Name:</td>
+                    <td>@ViewBag.Appointment.PatientName</td>
+                </tr>
+                <tr>
+                    <td>Patient Email:</td>
+                    <td>@User.Identity.GetUserName()</td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td>@ViewBag.Appointment.Gender</td>
+                </tr>
+
+                <!-- Doctor Details -->
+                <tr>
+                    <td>Doctor Name:</td>
+                    <td>@ViewBag.DoctorFullName</td>
+                </tr>
+                <tr>
+                    <td>Doctor Email:</td>
+                    <td>@ViewBag.DoctorEmail</td>
+                </tr>
+
+                <!-- Location Details -->
+                <tr>
+                    <td>Location:</td>
+                    <td>@ViewBag.PlaceName</td>
+                </tr>
+
+                <tr>
+                    <td>Service Type:</td>
+                    <td>@ViewBag.Appointment.ServiceType</td>
+                </tr>
+                <tr>
+                    <td>Service Date:</td>
+                    <td>@ViewBag.Appointment.Date.ToString("dd/MM/yyyy")</td>
+                </tr>
+
+                <tr>
+                    <td>Status:</td>
+                    <td>@ViewBag.Appointment.Status</td>
+                </tr>
+                <tr>
+                    <td>Note:</td>
+                    <td>@ViewBag.Appointment.Note</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<a href="@Url.Action("Index", "Mri")" class="btn theme-btn mt-3 ">Back</a>

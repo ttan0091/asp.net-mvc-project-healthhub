@@ -5,14 +5,15 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<HealthHub2.Context.HealthHubContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<HealthHub2.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "HealthHub2.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(HealthHub2.Context.HealthHubContext context)
+        protected override void Seed(HealthHub2.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

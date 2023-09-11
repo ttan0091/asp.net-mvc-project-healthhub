@@ -1,0 +1,62 @@
+﻿@model HealthHub2.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+<main aria-labelledby="title">
+   
+    <h2 id="title">@ViewBag.Title.</h2>
+
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <div>
+        <h4>Change your account settings</h4>
+        <hr />
+        @using (Html.BeginForm("UpdateProfile", "Manage", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+    <dl class="dl-horizontal">
+
+        <dt>First Name:</dt>
+        <dd>
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+        </dd>
+        <dt>Last Name:</dt>
+        <dd>
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+        </dd>
+
+        <dd>
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </dd>
+
+    </dl>
+        }
+
+        <dl class="dl-horizontal">
+
+            <dt>Password:</dt>
+            <dd>
+                [
+                @if (Model.HasPassword)
+                {
+                    @Html.ActionLink("Change your password", "ChangePassword")
+                }
+                else
+                {
+                    @Html.ActionLink("Create", "SetPassword")
+                }
+                ]
+            </dd>
+
+            @*<dt>External Logins:</dt>
+            <dd>
+                @Model.Logins.Count [
+                @Html.ActionLink("Manage", "ManageLogins") ]
+            </dd>*@
+
+          
+        </dl>
+    </div>
+</main>

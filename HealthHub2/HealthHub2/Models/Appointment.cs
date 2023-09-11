@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Web;
-using System.Web.Services.Description;
 
 namespace HealthHub2.Models
 {
@@ -14,13 +11,16 @@ namespace HealthHub2.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AppointmentId { get; set; }
 
-        [Required]
-        [ForeignKey("Patient")]
-        public int PatientId { get; set; }
+        //[Required]
+        //[ForeignKey("PatientUser")]
+        public string PatientId { get; set; }
 
-        [Required]
-        [ForeignKey("Doctor")]
-        public int DoctorId { get; set; }
+        [Display(Name = "Patient Name")]
+        public string PatientName { get; set; }
+
+        //[Required]
+        //[ForeignKey("DoctorUser")]
+        public string DoctorId { get; set; }
 
         [Required]
         [ForeignKey("GeoLocation")]
@@ -47,13 +47,15 @@ namespace HealthHub2.Models
         public string ImageUrl { get; set; }
 
         [Display(Name = "Upload Date")]
-        public DateTime? UploadDate{ get; set; }
-
-
+        public DateTime? UploadDate { get; set; }
 
         // Navigation Properties for Foreign Key relationships
-        public virtual Patient Patient { get; set; }
-        public virtual Doctor Doctor { get; set; }
+        //[ForeignKey("PatientId")]
+        //public virtual ApplicationUser PatientUser { get; set; } 
+
+        //[ForeignKey("DoctorId")]
+        //public virtual ApplicationUser DoctorUser { get; set; }
+
         public virtual GeoLocation GeoLocation { get; set; }
     }
 }
