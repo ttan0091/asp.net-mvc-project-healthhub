@@ -1,4 +1,4 @@
-﻿@*@model List<HealthHub2.Models.AppointmentViewModel>*@
+﻿
 @model PagedList.IPagedList<HealthHub2.Models.AppointmentViewModel>
 
 @using PagedList.Mvc;
@@ -41,7 +41,7 @@ else
         </div>
     </div>
 
-    <div class="col-lg-6 col-md-12 mt-3">
+    <div class="col-lg-6 col-md-12 mt-3 d-flex justify-content-between">
         <!-- 分页控件 -->
         <nav aria-label="Page navigation">
             <ul class="pagination">
@@ -68,7 +68,9 @@ else
                 </li>
             </ul>
         </nav>
-
+        <div>
+            <a href="@Url.Action("DownloadPDF", "Appointments")" class="btn btn-primary">Download Table</a>
+        </div>
     </div>
 </div>
 
@@ -93,8 +95,21 @@ else
                         <td>@Html.DisplayFor(modelItem => item.ClinicName)</td>
                         <td>@Html.DisplayFor(modelItem => item.DoctorName)</td>
                         <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                        <td>@Html.DisplayFor(modelItem => item.UploadDate)</td>
-                        <td><img src="@item.ImageUrl" alt="Medical Image" width="100" height="100"></td>
+                        @*<td>@Html.DisplayFor(modelItem => item.UploadDate)</td>*@
+                        <td>@(item.UploadDate?.ToString("yyyy-MM-dd") ?? "")</td>
+
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.ImageUrl))
+                            {
+                                <a href="@Url.Content(item.ImageUrl)" download class="btn btn-primary">Download</a>
+                            }
+                            else
+                            {
+                                <span>Not Available</span>
+                            }
+                        </td>
+
+
                     </tr>
                 }
             </tbody>

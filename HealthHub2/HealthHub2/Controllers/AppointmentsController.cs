@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,6 +13,11 @@ using HealthHub2.Models;
 using Microsoft.AspNet.Identity;
 using PagedList;
 using PagedList.Mvc;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
+
+
 namespace HealthHub2.Controllers
 {
     public class AppointmentsController : Controller
@@ -196,12 +202,79 @@ namespace HealthHub2.Controllers
                 ImageUrl = a.ImageUrl,
                 UploadDate = a.UploadDate,
                 DoctorName = db.Users.Where(u => u.Id == a.DoctorId).Select(u => u.FirstName + " " + u.LastName).FirstOrDefault(),
-                ClinicName = a.GeoLocation.PlaceName 
+                ClinicName = a.GeoLocation.PlaceName,
+                AppointmentId = a.AppointmentId
             }).ToPagedList(pageNumber, pageSize);
 
 
             // 将新的列表传递到视图
             return View(combinedAppointments);
+        }
+
+        public FileResult DownloadPDF()
+        {
+            string currentUserId = User.Identity.GetUserId();
+
+            var appointments = db.Appointment
+                                .Where(a => a.PatientId == currentUserId)
+                                .Include(a => a.GeoLocation)
+            .AsQueryable();
+
+
+            appointments = appointments.OrderBy(a => a.Date);
+
+            int pageSize = 100;
+            int pageNumber = 1;
+
+            // 创建一个新的列表，将医生名和其他信息绑定在一起
+            var combinedAppointments = appointments.Select(a => new AppointmentViewModel
+            {
+                PatientName = a.PatientName,
+                ServiceType = a.ServiceType,
+                Date = a.Date,
+                Status = a.Status,
+                Note = a.Note,
+                Gender = a.Gender,
+                UploadDate = a.UploadDate,
+                DoctorName = db.Users.Where(u => u.Id == a.DoctorId).Select(u => u.FirstName + " " + u.LastName).FirstOrDefault(),
+                ClinicName = a.GeoLocation.PlaceName,
+            }).ToPagedList(pageNumber, pageSize);
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Document document = new Document();
+                PdfWriter writer = PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                PdfPTable table = new PdfPTable(7); // 8 列
+
+                // 添加表头
+                table.AddCell("Appointment Date");
+                table.AddCell("Service Type");
+                table.AddCell("Clinic Name");
+                table.AddCell("Doctor Name");
+                table.AddCell("Status");
+                table.AddCell("Upload Date");
+                table.AddCell("Patient Name");
+
+                // 添加数据行
+                foreach (var item in combinedAppointments)
+                {
+                    table.AddCell(item.Date.ToString("yyyy-MM-dd"));
+                    table.AddCell(item.ServiceType);
+                    table.AddCell(item.ClinicName);
+                    table.AddCell(item.DoctorName);
+                    table.AddCell(item.Status);
+                    table.AddCell(item.UploadDate?.ToString("yyyy-MM-dd") ?? "");
+                    table.AddCell(item.PatientName);
+                }
+
+                document.Add(table);
+                document.Close();
+                writer.Close();
+
+                return File(ms.ToArray(), "application/pdf", "Appointment_Table.pdf");
+            }
         }
 
 

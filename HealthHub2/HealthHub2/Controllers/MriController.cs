@@ -17,12 +17,25 @@ namespace HealthHub2.Controllers
 
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Mri
-        [Authorize (Roles = "patient")]
+        
         public ActionResult Index(string viewName)
         {
-            ViewBag.ViewName = viewName ?? "BookMriService"; // 默认为 "BookMriService"
-            return View();
+            //如果roles是patient，则导航到View（）
+            if (User.IsInRole("patient"))
+            {
+                ViewBag.ViewName = viewName ?? "BookMriService"; // 默认为 "BookMriService"
+                return View();
+            }else if (User.IsInRole("doctor"))
+            {
+                ViewBag.ViewName = viewName ?? "CheckMriAppointments"; // 默认为 "CheckMriService"
+                return RedirectToAction("Index", "Doctor");
+            }else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
+
+
 
         [Authorize(Roles = "patient")]
         public ActionResult BookMriService()

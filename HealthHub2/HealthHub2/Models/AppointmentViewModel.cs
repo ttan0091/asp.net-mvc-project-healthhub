@@ -7,6 +7,7 @@ namespace HealthHub2.Models
 {
     public class AppointmentViewModel
     {
+        public int AppointmentId { get; set; }
         public string PatientName { get; set; }
         public string ServiceType { get; set; }
         public DateTime Date { get; set; }

@@ -87,10 +87,14 @@ namespace HealthHub2.Controllers
                         // 如果用户是患者，将其导航到Home控制器的Index方法
                         return RedirectToAction("Index", "Home");
                     }
-                    else
+                    else if(roles.Contains("doctor"))
                     {
                         // 如果用户不是患者，可以将其导航到其他适当的位置
-                        return RedirectToLocal(returnUrl);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
                     }
                 case SignInStatus.LockedOut:
                     return View("Lockout");

@@ -228,3 +228,6 @@ C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.cspro
 C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.csproj.CopyComplete
 C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.dll
 C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.pdb
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\bin\BouncyCastle.Crypto.dll
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\bin\itextsharp.dll
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\bin\itextsharp.xml
