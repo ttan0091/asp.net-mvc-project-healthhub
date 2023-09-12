@@ -1,14 +1,35 @@
-﻿@model IEnumerable<HealthHub2.Models.DoctorViewModel>
+﻿
+
+@model IEnumerable<HealthHub2.Models.DoctorViewModel>
 @{
     ViewBag.Title = "Send Email to Doctors";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (ViewBag.Result != null)
+{
+    <script>
+        alert("@ViewBag.Result");
+    </script>
+}
 
-<h2>@ViewBag.Title</h2>
 
+<!-- Bulk Email Form -->
+@using (Html.BeginForm("BulkSendEmail", "SendEmail", FormMethod.Post, new { id = "bulkSendEmailForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="d-flex justify-content-between">
+        <h2>@ViewBag.Title</h2>
+        <button type="button" id="bulkSendEmailBtn" class="btn btn-primary">Bulk Send Email</button>
+    </div>
+
+    <input type="hidden" id="bulkEmails" name="bulkEmails" value="" />
+}
+
+<!-- Table -->
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>Select</th>
             <th>Full Name</th>
             <th>Email</th>
             <th>Action</th>
@@ -18,17 +39,42 @@
         @foreach (var doctor in Model)
         {
             <tr>
+                <td><input type="checkbox" class="emailCheckbox" data-email="@doctor.Email" /></td>
                 <td>@doctor.FullName</td>
                 <td>@doctor.Email</td>
                 <td>
+                    <!-- Individual Email Form -->
                     @using (Html.BeginForm("SendEmail", "SendEmail", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         @Html.Hidden("ToEmail", doctor.Email)
                         <input type="submit" value="Send Email" class="btn btn-primary" />
                     }
+                    <!-- End of Individual Email Form -->
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        document.getElementById('bulkSendEmailBtn').addEventListener('click', function () {
+            let emails = [];
+            let checkboxes = document.getElementsByClassName('emailCheckbox');
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    emails.push(checkboxes[i].dataset.email);
+                }
+            }
+            if (emails.length > 0) {
+                document.getElementById('bulkEmails').value = emails.join(',');
+                document.getElementById('bulkSendEmailForm').submit();
+            } else {
+                alert('Please select at least one doctor.');
+            }
+        });
+    </script>
+}

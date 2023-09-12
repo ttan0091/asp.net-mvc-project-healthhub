@@ -524,6 +524,7 @@
     <Content Include="Views\AdminAppointment\Index.cshtml" />
     <Content Include="Views\SendEmail\Index.cshtml" />
     <Content Include="Views\SendEmail\SendEmail.cshtml" />
+    <Content Include="Views\SendEmail\BulkSendEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202309100422470_InitialCreate.resx">
