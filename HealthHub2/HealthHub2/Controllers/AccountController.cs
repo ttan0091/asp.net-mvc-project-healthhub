@@ -197,7 +197,7 @@ namespace HealthHub2.Controllers
                     // 添加用户到 "doctor" 角色
                     await UserManager.AddToRoleAsync(user.Id, "doctor");
 
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     return RedirectToAction("Index", "AdminUser");
                 }

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<HealthHub2.Models.DoctorViewModel>
+@{
+    ViewBag.Title = "Send Email to Doctors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doctor in Model)
+        {
+            <tr>
+                <td>@doctor.FullName</td>
+                <td>@doctor.Email</td>
+                <td>
+                    @using (Html.BeginForm("SendEmail", "SendEmail", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("ToEmail", doctor.Email)
+                        <input type="submit" value="Send Email" class="btn btn-primary" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
