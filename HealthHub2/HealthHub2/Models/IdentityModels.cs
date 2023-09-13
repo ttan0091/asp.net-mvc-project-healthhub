@@ -43,6 +43,8 @@ namespace HealthHub2.Models
 
         public DbSet<Appointment> Appointment { get; set; }
 
+        public DbSet<Rating> Rating { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

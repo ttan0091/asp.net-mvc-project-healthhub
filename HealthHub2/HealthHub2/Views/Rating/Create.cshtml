@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Create Rating";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Rating for @ViewBag.FullName</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal col-lg-6">
+    <hr />
+    <div class="form-group">
+        @Html.Label("Doctor Email", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input class="form-control" type="text" readonly value="@ViewBag.Email" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Doctor Name", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input class="form-control" type="text" readonly value="@ViewBag.FullName" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" type="hidden" name="DoctorId" value="@ViewBag.DoctorId" />
+    </div>
+
+
+    <div class="form-group">
+        @Html.Label("Rating", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input class="form-control" type="number" name="Rating" min="1" max="5" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Rate" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<HealthHub2.Models.DoctorRateViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .rating-color {
+        color: gold;
+    }
+</style>
+@if ((bool)ViewBag.IsPatient)
+{
+    <h2>Pick a Doctor</h2>
+}
+else
+{
+    <h2>Doctor Ratings</h2>
+}
+
+
+@if (ViewBag.Message != null)
+{
+    <script>
+        alert("@ViewBag.Message");
+    </script>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Rating</th>
+            @if ((bool)ViewBag.IsPatient)
+            {
+                <th>Action</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doctor in Model)
+        {
+            <tr>
+                <td>@doctor.FullName</td>
+                <td>@doctor.Email</td>
+                @*<td>@doctor.DoctorId</td>*@
+                <td>
+                    <div class="d-flex align-items-center">
+                        <div class="ratings">
+                            @{
+                                int roundedScore = (int)Math.Round(doctor.Score);
+                            }
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                if (i <= roundedScore)
+                                {
+                                    <i class="fas fa-star"></i>
+                                }
+                                else
+                                {
+                                    <i class="far fa-star"></i>
+                                }
+                            }
+                        </div>
+                        <h5 class="averageScore ml-3">@doctor.Score</h5>
+                    </div>
+                </td>
+
+
+                <td>
+                    @if ((bool)ViewBag.IsPatient)
+                    {
+                        @Html.ActionLink("Rate", "Create", "Rating", new { email = doctor.Email, fullName = doctor.FullName, DoctorId = doctor.DoctorId }, new { @class = "btn btn-primary" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

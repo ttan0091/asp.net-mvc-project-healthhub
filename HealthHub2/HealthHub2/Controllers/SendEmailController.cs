@@ -13,31 +13,7 @@ namespace HealthHub2.Controllers
     public class SendEmailController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
-        // GET: Send_Email
-        //public ActionResult Index()
-        //{
-        //    if (TempData["Result"] != null)
-        //    {
-        //        ViewBag.Result = TempData["Result"];
-        //    }
-        //    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-        //    var allUsers = userManager.Users.ToList();
-        //    var doctors = new List<DoctorViewModel>();
 
-        //    foreach (var user in allUsers)
-        //    {
-        //        if (userManager.IsInRole(user.Id, "doctor"))
-        //        {
-        //            doctors.Add(new DoctorViewModel
-        //            {
-        //                FullName = user.FirstName + " " + user.LastName,
-        //                Email = user.Email
-        //            });
-        //        }
-        //    }
-
-        //    return View(doctors);
-        //}
         public ActionResult Index()
         {
             if (TempData["Result"] != null)
