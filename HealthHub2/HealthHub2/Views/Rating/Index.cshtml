@@ -5,18 +5,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    .rating-color {
-        color: gold;
-    }
-</style>
+
 @if ((bool)ViewBag.IsPatient)
 {
     <h2>Pick a Doctor</h2>
 }
 else
 {
-    <h2>Doctor Ratings</h2>
+    <div class="d-flex justify-content-between">
+        <h2>Doctor Ratings</h2>
+        <a href="@Url.Action("DisplayChart", "Rating")" class="btn btn-primary">Rating Chart</a>
+    </div>
+
+
 }
 
 
@@ -52,19 +53,31 @@ else
                             @{
                                 int roundedScore = (int)Math.Round(doctor.Score);
                             }
-                            @for (int i = 1; i <= 5; i++)
+                            @if (roundedScore == 0)
                             {
-                                if (i <= roundedScore)
+                                <p>Not Rated</p>
+                            }
+                            else
+                            {
+                                for (int i = 1; i <= 5; i++)
                                 {
-                                    <i class="fas fa-star"></i>
-                                }
-                                else
-                                {
-                                    <i class="far fa-star"></i>
+                                    if (i <= roundedScore)
+                                    {
+                                        <i class="fas fa-star"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="far fa-star"></i>
+                                    }
                                 }
                             }
+
                         </div>
-                        <h5 class="averageScore ml-3">@doctor.Score</h5>
+                        @if (roundedScore != 0)
+                        {
+                            <h5 class="averageScore ml-3">@doctor.Score</h5>
+                        }
+
                     </div>
                 </td>
 

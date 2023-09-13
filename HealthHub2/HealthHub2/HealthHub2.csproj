@@ -543,6 +543,7 @@
     <Content Include="Views\AdminRating\Details.cshtml" />
     <Content Include="Views\AdminRating\Edit.cshtml" />
     <Content Include="Views\AdminRating\Index.cshtml" />
+    <Content Include="Views\Rating\DisplayChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202309100422470_InitialCreate.resx">

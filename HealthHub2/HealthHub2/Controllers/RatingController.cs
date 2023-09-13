@@ -62,6 +62,51 @@ namespace HealthHub2.Controllers
             return View(doctorRates); // 此处传入doctorRates列表
         }
 
+        public ActionResult RatingChart()
+        {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            var doctorRates = GenerateDoctorRateViewModels(userManager);
+
+            // 序列化为JSON字符串并返回
+            return Json(doctorRates, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<DoctorRateViewModel> GenerateDoctorRateViewModels(UserManager<ApplicationUser> userManager)
+        {
+            var allUsers = userManager.Users.ToList();
+            var doctorRates = new List<DoctorRateViewModel>();
+
+            foreach (var user in allUsers)
+            {
+                if (userManager.IsInRole(user.Id, "doctor"))
+                {
+                    // 获取该医生的所有评分
+                    var ratings = db.Rating.Where(r => r.DoctorId == user.Id).ToList();
+
+                    // 计算平均评分
+                    double averageRate = 0;
+                    if (ratings.Count > 0)
+                    {
+                        averageRate = ratings.Average(r => r.Score);
+                    }
+
+                    doctorRates.Add(new DoctorRateViewModel
+                    {
+                        DoctorId = user.Id,
+                        FullName = user.FirstName + " " + user.LastName,
+                        Email = user.Email,
+                        Score = Math.Round(averageRate, 1) // 保留一位小数
+                    });
+                }
+            }
+
+            return doctorRates;
+        }
+
+        public ActionResult DisplayChart()
+        {
+            return View();
+        }
 
         // GET: Rating/Details/5
         public ActionResult Details(int? id)
@@ -114,21 +159,19 @@ namespace HealthHub2.Controllers
                     RatingDate = DateTime.Now // 设置为当前日期和时间
                 };
 
-                // 将新的Rating对象添加到数据库中
                 db.Rating.Add(newRating);
 
-                // 保存更改
                 db.SaveChanges();
 
                 TempData["Message"] = "Your rating has been submitted successfully!";
 
-                // 重定向到某个页面，例如Index页面
                 return RedirectToAction("Index");
             }
 
-            // 如果模型状态无效，返回到相同的视图（或其他视图）并显示错误
             return View();
         }
+
+ 
 
         // GET: Rating/Edit/5
         public ActionResult Edit(int? id)
