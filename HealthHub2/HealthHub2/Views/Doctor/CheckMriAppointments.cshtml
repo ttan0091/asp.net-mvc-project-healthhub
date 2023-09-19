@@ -72,7 +72,7 @@ else
         </div>
     </div>
 
-    <table class="table table-striped fs-6 mt-3 shadow">
+    <table class="table table-striped fs-6 mt-3 shadow" id="example">
         <thead>
             <tr>
                 <th>Appointment Date</th>
@@ -124,6 +124,10 @@ else
 
 @Scripts.Render("~/bundles/jquery")
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new DataTable('#example');
+    });
+
     $(document).ready(function () {
 
 
@@ -207,6 +211,9 @@ else
                 }
             });
         });
+
+
+
     });
 </script>
 
