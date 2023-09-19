@@ -164,7 +164,7 @@ namespace HealthHub2.Controllers
         }
 
 
-        public ActionResult CheckImages(string sortOrder, int? page)
+        public ActionResult CheckImages()
         {
             string currentUserId = User.Identity.GetUserId();
 
@@ -173,24 +173,7 @@ namespace HealthHub2.Controllers
                                 .Include(a => a.GeoLocation)
                                 .AsQueryable();
 
-            switch (sortOrder)
-            {
-                case "date_desc":
-                    appointments = appointments.OrderByDescending(a => a.Date);
-                    break;
-                case "date_asc":
-                    appointments = appointments.OrderBy(a => a.Date);
-                    break;
-                default:
-                    appointments = appointments.OrderBy(a => a.Date);
-                    break;
-            }
-            ViewBag.CurrentSort = sortOrder;
-
-            int pageSize = 5;  
-            int pageNumber = (page ?? 1); 
-
-            // 创建一个新的列表，将医生名和其他信息绑定在一起
+        
             var combinedAppointments = appointments.Select(a => new AppointmentViewModel
             {
                 PatientName = a.PatientName, 
@@ -204,7 +187,7 @@ namespace HealthHub2.Controllers
                 DoctorName = db.Users.Where(u => u.Id == a.DoctorId).Select(u => u.FirstName + " " + u.LastName).FirstOrDefault(),
                 ClinicName = a.GeoLocation.PlaceName,
                 AppointmentId = a.AppointmentId
-            }).ToPagedList(pageNumber, pageSize);
+            }).ToList();
 
 
             // 将新的列表传递到视图

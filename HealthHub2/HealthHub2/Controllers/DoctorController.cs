@@ -38,26 +38,6 @@ namespace HealthHub2.Controllers
                                 .Include(a => a.GeoLocation) // 根据需要包含其他相关表
                                 .AsQueryable();
 
-            // 根据排序参数排序
-            switch (sortOrder)
-            {
-                case "date_desc":
-                    appointments = appointments.OrderByDescending(a => a.Date);
-                    break;
-                case "date_asc":
-                    appointments = appointments.OrderBy(a => a.Date);
-                    break;
-                default:
-                    appointments = appointments.OrderBy(a => a.Date);
-                    break;
-            }
-
-            ViewBag.CurrentSort = sortOrder; // 保存当前的排序参数
-
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-
-            // 创建一个新的 ViewModel 列表
             var combinedAppointments = appointments.Select(a => new AppointmentViewModel
             {
                 PatientName = a.PatientName,
@@ -71,9 +51,9 @@ namespace HealthHub2.Controllers
                 DoctorName = db.Users.Where(u => u.Id == a.DoctorId).Select(u => u.FirstName + " " + u.LastName).FirstOrDefault(),
                 ClinicName = a.GeoLocation.PlaceName,
                 AppointmentId = a.AppointmentId
-            }).ToPagedList(pageNumber, pageSize);
+            }).ToList();
 
-            return View(combinedAppointments); // 注意这里使用的是 PartialView
+            return View(combinedAppointments); 
         }
 
 
