@@ -2,80 +2,72 @@
     ViewBag.Title = "SentToChatCommunity";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="auto-container">
-   
-    <h2>Live Chat </h2>
-  
-    <div class="row justify-content-between">
-        <div class="form-group col-md-6">
-            <label id="label1">Write Your Message Here</label><br />
-            <textarea class="form-control" rows="4" cols="40" id="message" placeholder="Share what's in your mind..."></textarea>
-            <br />
-            <input type="button" class="btn btn-primary mt-3" id="sendmessage" value="Send" />
-            <br />
-            <br />
-            
-        </div>
+
+<div class="container">
+    <h2 class=" my-4">Live Chat</h2>
+
         <div class="col-md-6">
-            <label id="label2">Group Chat Conversations History</label>
-            <div class="container chatArea mt-3">
+            <div class="border chat-box p-3 rounded" id="chatArea">
                 <input type="hidden" id="displayname" />
                 <ul id="discussion"></ul>
             </div>
         </div>
-    </div>
-    
+
+        <div class="col-md-6 mt-3">
+            <div class="form-group">
+                <textarea class="form-control" id="message" rows="1" placeholder="Share what's in your mind..."></textarea>
+                <button type="button" class="btn btn-primary mt-3" id="sendmessage">Send</button>
+            </div>
+        </div>
+
 </div>
-    @section scripts {
 
-        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-        <script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
-        <script src="~/signalr/hubs"></script>
-        <script>
-           
-            $(document).ready(() => {
-                const chat = $.connection.chatHub;
+@section scripts {
 
-                // Function to update chat page
-                const addNewMessageToPage = (name, message) => {
-                    const listItem = `
-                        <ul style="list-style-type:square">
-                            <li>
-                                <strong style="color:red;font-style:normal;font-size:medium;text-transform:uppercase">${htmlEncode(name)}</strong>  
-                                <strong style="color:black;font-style:normal;font-size:medium;text-transform:lowercase">said</strong>: 
-                                <strong style="font-style:oblique;font-size:medium">${htmlEncode(message)}</strong>
-                            </li>
-                        </ul>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(document).ready(() => {
+            const chat = $.connection.chatHub;
+
+            const addNewMessageToPage = (name, message) => {
+                const listItem = `
+                        <li class="mb-3">
+                            <strong class="text-danger">${htmlEncode(name)}</strong> :
+                            <span class="text-secondary">${htmlEncode(message)}</span>
+                        </li>
                     `;
+                $('#discussion').append(listItem);
+            };
 
-                    $('#discussion').append(listItem);
-                };
+            const htmlEncode = (value) => {
+                return $('<div />').text(value).html();
+            };
 
-                // Function to HTML encode a string
-                const htmlEncode = (value) => {
-                    return $('<div />').text(value).html();
-                };
+            chat.client.addNewMessageToPage = addNewMessageToPage;
 
-                // Register the function as a client method
-                chat.client.addNewMessageToPage = addNewMessageToPage;
+            const displayName = prompt('Your Good Name Please:', '');
+            $('#displayname').val(displayName);
 
-                // Initialize user's name
-                const displayName = prompt('Your Good Name Please:', '');
-                $('#displayname').val(displayName);
+            $('#message').focus();
 
-                // Focus on the message input
-                $('#message').focus();
-
-                // Start the connection and set the event handlers
-                $.connection.hub.start().done(() => {
-                    $('#sendmessage').click(() => {
-                        const name = $('#displayname').val();
-                        const message = $('#message').val();
-                        chat.server.send(name, message);
-                        $('#message').val('').focus();
-                    });
+            $.connection.hub.start().done(() => {
+                $('#sendmessage').click(() => {
+                    const name = $('#displayname').val();
+                    const message = $('#message').val();
+                    chat.server.send(name, message);
+                    $('#message').val('').focus();
                 });
             });
+        });
+    </script>
+}
 
-        </script>
+<!-- Add CSS for chat box -->
+<style>
+    .chat-box {
+        height: 200px;
+        overflow-y: scroll;
     }
+</style>
