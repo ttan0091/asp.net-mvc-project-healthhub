@@ -19,5 +19,7 @@ namespace HealthHub2.Models
         [Required(ErrorMessage = "Please enter the contents")]
         public string Contents { get; set; }
 
+        public HttpPostedFileBase Attachment { get; set; }
+
     }
 }

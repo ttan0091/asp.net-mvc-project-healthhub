@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace HealthHub2.Controllers
 {
@@ -79,9 +81,8 @@ namespace HealthHub2.Controllers
             return View(new SendEmailViewModel());
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult FinishSendEmail(SendEmailViewModel model)
+
+        public async Task<ActionResult> FinishSendEmail(SendEmailViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -90,14 +91,21 @@ namespace HealthHub2.Controllers
                     String toEmail = model.ToEmail;
                     String subject = model.Subject;
                     String contents = model.Contents;
-
                     EmailSender es = new EmailSender();
-                    es.Send(toEmail, subject, contents);
 
-                    TempData["Result"] = "Email has been send.";
+                    if (model.Attachment != null && model.Attachment.ContentLength > 0)
+                    {
+                        Stream stream = model.Attachment.InputStream;
+                        string fileName = Path.GetFileName(model.Attachment.FileName);
+                        await es.SendWithAttachment(toEmail, subject, contents, stream, fileName);
+                    }
+                    else
+                    {
+                        es.Send(toEmail, subject, contents);
+                    }
 
+                    TempData["Result"] = "Email has been sent.";
                     ModelState.Clear();
-
                     return RedirectToAction("SendEmail");
                 }
                 catch
@@ -108,6 +116,7 @@ namespace HealthHub2.Controllers
 
             return View();
         }
+
 
 
         [HttpPost]
@@ -128,29 +137,43 @@ namespace HealthHub2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult FinishBulkSendEmail()
+        public async Task<ActionResult> FinishBulkSendEmail(SendEmailViewModel model)
         {
             try
             {
                 // 分解ToEmail字符串，将其转换为电子邮件地址数组
+                String subject = model.Subject;
+                String contents = model.Contents;
                 string emailAddresses = Request.Form["emailAddresses"];
                 string[] emailArray = emailAddresses.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(email => email.Trim())
                     .ToArray();
-                string subject = Request.Form["Subject"];
-                string contents = Request.Form["Contents"];
+           
 
                 EmailSender es = new EmailSender();
 
-                foreach (var toEmail in emailArray)
+                // 检查是否有附件
+                if (model.Attachment != null && model.Attachment.ContentLength > 0)
                 {
-                    // 发送邮件到每一个地址
-                    es.Send(toEmail.Trim(), subject, contents);
+                    // 将附件转换为字节流或存储为文件
+                    Stream stream = model.Attachment.InputStream;
+                    string fileName = Path.GetFileName(model.Attachment.FileName);
+
+                    foreach (var toEmail in emailArray)
+                    {
+                        stream.Position = 0;
+                        await es.SendWithAttachment(toEmail.Trim(), subject, contents, stream, fileName);
+                    }
+                }
+                else
+                {
+                    foreach (var toEmail in emailArray)
+                    {
+                        es.Send(toEmail.Trim(), subject, contents);
+                    }
                 }
 
                 TempData["Result"] = "Emails have been sent.";
-
-                //ModelState.Clear();
 
                 return RedirectToAction("Index"); // 重定向到群发电子邮件的视图
             }
