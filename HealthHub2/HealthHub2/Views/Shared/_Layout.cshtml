@@ -47,34 +47,16 @@
                                 <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                     <ul class="navigation">
                                         <li class="dropdown">
-                                            <a href="#">Service</a>
-                                            <ul>
-                                                <li><a href="@Url.Action("Index", "Mri")">MRI</a></li>
-                                            </ul>
+                                            <a href="@Url.Action("Index", "Mri")">MRI</a>
                                         </li>
                                         <li class="dropdown">
                                             <a href="@Url.Action("ChatCommunity", "ChatHub")">Chat Community</a>
                                         </li>
                                         <li class="dropdown">
                                             <a href="#">Patient Info</a>
-                                            <ul>
-                                                <li><a href="#">Your Safety Is Our Priority</a></li>
-                                                <li><a href="#">Fees & Billing</a></li>
-                                                <li><a href="#">Feedback</a></li>
-                                                <li><a href="#">Workers Compensation</a></li>
-                                                <li><a href="#">Overseas Patients</a></li>
-                                                <li><a href="#">Frequently Asked Questions</a></li>
-                                            </ul>
                                         </li>
                                         <li class="dropdown">
                                             <a href="#">About</a>
-                                            <ul>
-                                                <li><a href="#">Careers</a></li>
-                                                <li><a href="#">Contact Us</a></li>
-                                                <li><a href="#">Patient Updates</a></li>
-                                                <li><a href="#">Our Technology</a></li>
-                                                <li><a href="#">Research Partners</a></li>
-                                            </ul>
                                         </li>
                                     </ul>
 
@@ -87,38 +69,7 @@
             </div>
         </div>
         <!--End Header Upper-->
-         @*Sticky Header*@  
-        <div class="sticky-header">
-            <div class="header-upper">
-                <div class="auto-container">
-                    <div class="inner-container">
-                        <a href="@Url.Action("Index", "Home")" class="d-flex align-items-center text-decoration-none">
-                            <div class="logo">
-                                <img src="~/assets/images/logo-dark.png" alt="">
-                            </div>
-                            <h3 class="">HealthHub Connect</h3>
-                        </a>
-                        <div class="right-column">
-                            @*Nav Box*@
-                            <div class="nav-outer">
-                                @*Mobile Navigation Toggler*@
-                                <div class="mobile-nav-toggler">
-                                    <img src="~/assets/images/icons/icon-bar-2.png" alt="icon">
-                                </div>
-
-                                 @*Main Menu*@ 
-                                <nav class="main-menu navbar-expand-md navbar-light">
-
-                                </nav>
-                            </div>
-
-                            @Html.Partial("_NavbarRightInfo")
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> 
+     
         <!-- Mobile Menu  -->
         <div class="mobile-menu">
             <div class="close-btn"><span class="fal fa-times"></span></div>
