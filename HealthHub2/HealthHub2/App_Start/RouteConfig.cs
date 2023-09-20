@@ -18,6 +18,13 @@ namespace HealthHub2
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "SignalR",
+                url: "signalr/{*pathInfo}",
+                defaults: new { controller = "Home", action = "Index" }
+            );
+
         }
     }
 }

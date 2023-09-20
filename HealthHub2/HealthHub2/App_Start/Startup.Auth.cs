@@ -85,6 +85,8 @@ namespace HealthHub2
                 role.Name = "admin";
                 roleManager.Create(role);
             }
+
+            
         }
     }
 }

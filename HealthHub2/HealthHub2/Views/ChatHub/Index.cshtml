@@ -1,0 +1,47 @@
+﻿
+
+<!--@model IEnumerable<HealthHub2.Models.DoctorViewModel>
+@{
+    ViewBag.Title = "Send Email to Doctors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.Result != null)
+{
+    <script>
+        alert("@ViewBag.Result");
+    </script>
+}-->
+
+
+
+<!-- Table -->
+<!--<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Select</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doctor in Model)
+        {
+            <tr>
+                <td><input type="checkbox" class="emailCheckbox" data-email="@doctor.Email" /></td>
+                <td>@doctor.FullName</td>
+                <td>@doctor.Email</td>
+                <td>-->
+                    <!-- Individual Email Form -->
+                    <!--@using (Html.BeginForm("SentToDoctor", "ChatHub", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("ToEmail", doctor.Email)
+                        <input type="submit" value="Chat" class="btn btn-primary" />
+                    }-->
+                    <!-- End of Individual Email Form -->
+                <!--</td>
+            </tr>
+        }
+    </tbody>
+</table>-->

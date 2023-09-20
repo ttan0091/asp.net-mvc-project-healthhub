@@ -121,3 +121,9 @@ C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.cspro
 C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.dll
 C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.pdb
 C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\obj\Debug\HealthHub2.Migrations.addratingtable.resources
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\bin\Microsoft.AspNet.SignalR.Core.pdb
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+C:\Users\谈韬\Desktop\FIT5032\HealthHub2\HealthHub2\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
